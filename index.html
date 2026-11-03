@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -7,209 +7,215 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
 <style>
-/* Layout: top bar, role switcher, one content column. Teal = private, indigo = insurer, amber = held slots. */
+/* Layout: blue app band, white role tabs, one content column. Blue = private / payment required, green = insured / covered, amber = held. Single light theme on purpose, matching the clinic app. */
 :root{
-  --bg:#f3f6f5;--surface:#fff;--surface2:#eaf0ee;--ink:#13242a;--muted:#587076;--line:#d6dfdd;
-  --priv:#0e6b66;--ins:#3454d1;--prot:#b97a05;--ok:#1d7a46;--bad:#b3372f;
-  --on-priv:#fff;--on-ins:#fff;
-  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
-  --body:'Figtree','Segoe UI',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --blue:#3b82f6;--blue-d:#1d4ed8;--blue-l:#e8f0fe;--bg:#f3f6fb;--surface:#fff;--ink:#111827;--muted:#5b6678;--line:#dbe3ef;
+  --green:#15803d;--green-l:#dcfce7;--amber:#c2710c;--amber-l:#fef3c7;--red:#dc2626;--red-l:#fee2e2;
+  --font:'Roboto','Segoe UI',system-ui,-apple-system,sans-serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0e191c;--surface:#15252a;--surface2:#1c3036;--ink:#e3eeee;--muted:#93a9ad;--line:#2a4147;
-  --priv:#3fb8ae;--ins:#8199f7;--prot:#e0a63a;--ok:#4cc27f;--bad:#ef7b72;--on-priv:#08181a;--on-ins:#0a1030;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0e191c;--surface:#15252a;--surface2:#1c3036;--ink:#e3eeee;--muted:#93a9ad;--line:#2a4147;
-  --priv:#3fb8ae;--ins:#8199f7;--prot:#e0a63a;--ok:#4cc27f;--bad:#ef7b72;--on-priv:#08181a;--on-ins:#0a1030;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);margin:0}
-.wrap{max-width:1120px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);margin:0;line-height:1.2;text-wrap:balance}
-h2{font-size:22px}h3{font-size:17px}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);margin:0;font-variant-numeric:tabular-nums}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{background:var(--blue);color:#fff}
+.bandin{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;padding-block:16px}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:48px;height:48px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-size:22px;font-weight:700;display:block;line-height:1.2}.brand small{opacity:.85;font-size:13px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;font-size:14px}
+.clock{display:flex;align-items:center;gap:8px}
+.clock b{min-width:100px;text-align:center;font-weight:500}
+.clock button,.lang button{border:0;background:rgba(255,255,255,.18);color:#fff;border-radius:8px;width:30px;height:30px;font-size:16px}
+.lang{display:flex;gap:4px}.lang button{width:auto;padding:0 10px;font-size:13px;font-weight:500}
+.lang button.on{background:#fff;color:var(--blue-d)}
+.wrap{max-width:1120px;margin:0 auto;padding-block:18px 56px}
+h1,h2,h3,h4{margin:0;line-height:1.25;text-wrap:balance}
+h2{font-size:22px;font-weight:700}h3{font-size:17px;font-weight:700}
+h2 .ic,h3 .ic{color:var(--blue)}
 p{margin:0}.muted{color:var(--muted)}.small{font-size:13px}
-.top{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;margin-bottom:16px}
-.brand{display:flex;gap:12px;align-items:center}
-.mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--priv) 50%,var(--ins) 50%)}
-.brand b{font:700 20px var(--display);display:block}.brand small{color:var(--muted);font-size:13px}
-.clock{display:flex;align-items:center;gap:8px;font-size:14px}
-.clock b{font-family:var(--mono);font-weight:500;min-width:96px;text-align:center}
-.tabs{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-bottom:18px}
 .tabs .lbl{color:var(--muted);font-size:13px}
-.seg{display:flex;flex-wrap:wrap;gap:4px;background:var(--surface2);padding:4px;border-radius:10px}
+.seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--blue);border-radius:8px;overflow:hidden;background:#fff}
 button{font:inherit;color:inherit;cursor:pointer}
-.seg button,.sub button{border:0;background:none;padding:7px 14px;border-radius:7px;font-weight:500}
-.seg button.on,.sub button.on{background:var(--surface);box-shadow:0 1px 2px rgba(0,0,0,.18);color:var(--ink)}
-.seg button:not(.on),.sub button:not(.on){color:var(--muted)}
-button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--ins);outline-offset:2px}
-.btn{border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:8px;font-weight:500}
-.btn.pri{background:var(--priv);color:var(--on-priv);border-color:var(--priv)}
-.btn.bad{color:var(--bad)}.btn.sm{padding:4px 10px;font-size:13px}
+.seg button{border:0;background:#fff;color:var(--blue-d);padding:8px 16px;font-weight:500}
+.seg button+button{border-left:1px solid var(--blue)}
+.seg button.on{background:var(--blue);color:#fff}
+.sub{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.sub button{border:1px solid var(--line);background:#fff;color:var(--muted);padding:7px 14px;border-radius:99px;font-weight:500}
+.sub button.on{background:var(--blue-l);border-color:var(--blue);color:var(--blue-d)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 45%,transparent);outline-offset:1px}
+.btn{border:1px solid var(--line);background:#fff;padding:8px 16px;border-radius:8px;font-weight:500}
+.btn.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.bad{color:var(--red)}.btn.sm{padding:4px 11px;font-size:13px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.clock button{border:1px solid var(--line);background:var(--surface);border-radius:7px;width:30px;height:30px}
-.chip{font:500 12px var(--mono);background:var(--surface2);padding:3px 8px;border-radius:99px;color:var(--muted)}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.chip{font-size:12px;background:var(--blue-l);padding:3px 9px;border-radius:99px;color:var(--blue-d);font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(17,24,39,.05)}
 .card>h2+p,.card>h3+p{margin-top:4px}
-.grid{display:grid;gap:16px}
+.grid{display:grid;gap:14px;margin-top:14px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
-.card .grid{margin-top:14px}
 .row{display:flex;flex-wrap:wrap;gap:14px 18px;margin-top:14px;align-items:flex-end}
-label{font-size:13px;color:var(--muted);display:block}
-select,input[type=number],input[type=text]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 10px;margin-top:3px;max-width:100%}
+label{font-size:13px;color:var(--ink);font-weight:500;display:block}
+select,input[type=number],input[type=text],input[type=password]{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;margin-top:4px;max-width:100%}
 input[type=number]{width:78px}
+select:focus,input:focus{border-color:var(--blue)}
 .scroll{overflow-x:auto;margin-top:12px}
 table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 thead th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
 tbody th{font-weight:500;white-space:nowrap}
-td.num,.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.cal td{text-align:center}.cal th:first-child{text-align:left}
-.cellb{border:1px solid var(--priv);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:7px;font:500 13px var(--mono)}
-.cellb.on{background:var(--priv);color:var(--on-priv)}
+.cal td{text-align:center}
 .none{color:var(--muted);font-size:13px}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:8px;margin-top:12px}
-.slot{font:500 13px var(--mono);padding:10px 0;border-radius:7px;border:1.5px solid var(--line);background:var(--surface);text-align:center;line-height:1.2}
-.slot small{display:block;font-size:10px;font-weight:400;opacity:.85;margin-top:2px}
-.slot.open{border-color:var(--priv)}
-.slot.held{border-color:var(--prot);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--prot) 30%,transparent) 0 4px,transparent 4px 8px)}
-.slot.bp{background:var(--priv);color:var(--on-priv);border-color:var(--priv);cursor:default}
-.slot.bi{background:var(--ins);color:var(--on-ins);border-color:var(--ins);cursor:default}
-.slot.sel{outline:3px solid var(--ink);outline-offset:1px}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-top:12px}
-.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-3px;margin-right:5px;border:1.5px solid var(--line)}
-.legend .o{border-color:var(--priv)}.legend .h{border-color:var(--prot);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--prot) 35%,transparent) 0 3px,transparent 3px 6px)}
-.legend .bp{background:var(--priv);border-color:var(--priv)}.legend .bi{background:var(--ins);border-color:var(--ins)}
-.legend .x{border:1.5px dashed var(--muted);opacity:.7}
-.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--surface2);color:var(--muted)}
-.pill.ok{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
-.pill.warn{background:color-mix(in srgb,var(--prot) 18%,transparent);color:var(--prot)}
-.pill.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
-.pill.priv{background:color-mix(in srgb,var(--priv) 16%,transparent);color:var(--priv)}
-.pill.ins{background:color-mix(in srgb,var(--ins) 16%,transparent);color:var(--ins)}
-.kpi b{display:block;font:700 28px var(--display);font-variant-numeric:tabular-nums;margin-top:2px}
-.kpi span{font-size:13px;color:var(--muted)}
-.kpi{background:var(--surface2);border-radius:10px;padding:14px 16px}
-.note{background:var(--surface2);border-radius:9px;padding:10px 14px;font-size:14px;margin-top:12px}
-.note.warn{background:color-mix(in srgb,var(--prot) 14%,transparent)}
-.note.good{background:color-mix(in srgb,var(--ok) 13%,transparent)}
-.note.bad{background:color-mix(in srgb,var(--bad) 12%,transparent)}
-.sub{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
-.sub button{border:1px solid var(--line)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-top:12px}
+.slot{font-size:13px;font-weight:500;padding:9px 0;border-radius:10px;border:2px solid var(--line);background:#fff;text-align:center;line-height:1.2}
+.slot small{display:block;font-size:10px;font-weight:400;color:var(--muted);margin-top:2px}
+.slot.open{border-color:var(--blue)}
+.slot.held{border-color:var(--amber);background:repeating-linear-gradient(135deg,var(--amber-l) 0 4px,#fff 4px 8px)}
+.slot.bp{background:var(--blue);color:#fff;border-color:var(--blue)}.slot.bp small{color:#e8f0fe}
+.slot.bi{background:var(--green);color:#fff;border-color:var(--green)}.slot.bi small{color:#dcfce7}
+.slot.sel,.scard.sel{outline:3px solid var(--ink);outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px;margin-top:12px;align-items:center}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.pill{display:inline-block;font-size:12px;font-weight:500;padding:2px 10px;border-radius:99px;background:#eef2f7;color:var(--muted)}
+.pill.ok{background:var(--green-l);color:var(--green)}.pill.warn{background:var(--amber-l);color:var(--amber)}.pill.bad{background:var(--red-l);color:var(--red)}
+.pill.blue{background:var(--blue-l);color:var(--blue-d)}
+.count{background:var(--blue);color:#fff;font-size:13px;font-weight:500;padding:6px 14px;border-radius:99px}
+.kpi{background:var(--blue-l);border-radius:10px;padding:14px 16px}
+.kpi b{display:block;font-size:26px;font-weight:700;margin-top:2px;color:var(--blue-d)}.kpi span{font-size:13px;color:var(--muted)}
+.note{background:var(--blue-l);border-radius:9px;padding:10px 14px;font-size:14px;margin-top:12px}
+.note.warn{background:var(--amber-l)}.note.good{background:var(--green-l)}.note.bad{background:var(--red-l)}
 .mx td{text-align:center;padding:0}
-.mx button{display:block;width:100%;border:0;padding:9px 6px;background:none;font:500 13px var(--mono);line-height:1.25;border-radius:0}
-.mx button small{display:block;color:var(--muted);font-size:11px}
-.fig{margin:16px 0 0;overflow-x:auto}
-.fig svg{display:block;min-width:720px;width:100%;height:auto}
-figcaption{font-size:13px;color:var(--muted);margin-top:8px;max-width:78ch}
-svg text{fill:currentColor;font-family:var(--body)}
-svg .t{font-weight:600;font-size:13px}svg .ts{font-size:11px;fill:var(--muted)}svg .lb{font-size:11px;fill:var(--muted)}
-svg .nd{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
-svg .nd.ac{stroke:var(--priv);stroke-width:2;fill:color-mix(in srgb,var(--priv) 10%,var(--surface))}
-svg .ar{fill:none;stroke:var(--muted);stroke-width:1.5}
-svg .ah{fill:var(--muted)}
-svg .sq-bp{fill:var(--priv)}svg .sq-bi{fill:var(--ins)}
-svg .sq-open{fill:var(--surface);stroke:var(--priv);stroke-width:1.5}
-svg .sq-held{fill:url(#hatch);stroke:var(--prot);stroke-width:1.5}
-svg .sq-hid{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:3 3;opacity:.7}
-svg .chartline{fill:none;stroke:var(--priv);stroke-width:2.5}
-svg .grid-l{stroke:var(--line);stroke-width:1}
-svg .handle{fill:var(--surface);stroke:var(--priv);stroke-width:3;cursor:ns-resize;touch-action:none}
-.chartbox svg{display:block;width:100%;height:auto;max-width:560px;min-width:0;touch-action:none}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
-.ptable input{width:64px}
-.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
-.roles div{background:var(--surface2);border-radius:10px;padding:14px}
-.roles h3{font-size:16px;margin-bottom:4px}
-.roles ul{margin:6px 0 10px;padding-left:18px;font-size:14px}
-.demo-tag{display:inline-block;font:500 11px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:2px 7px}
+.mx button{display:block;width:100%;border:0;padding:9px 6px;background:none;font-size:13px;font-weight:500;line-height:1.25}
+.mx button small{display:block;color:var(--muted);font-size:11px;font-weight:400}
 .dcwrap{display:flex;align-items:flex-start;gap:8px;margin-top:14px}
 .dcols{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(150px,1fr);gap:12px;flex:1;min-width:0;overflow:auto;max-height:460px;padding:2px}
-.dcol h4{margin:0 0 8px;font:700 14px var(--display);text-align:center;position:sticky;top:0;background:var(--surface);padding:4px 0;z-index:1}
-.scard{display:block;width:100%;text-align:center;padding:8px 6px;margin-bottom:8px;border-radius:12px;border:2px solid var(--line);background:var(--surface);line-height:1.25}
-.scard b{display:block;font:600 16px var(--mono)}.scard span{display:block;font-size:12px;color:var(--muted)}.scard small{font-size:12px;color:var(--muted)}
-.scard.cov{border-color:var(--ok)}.scard.pay{border-color:var(--ins)}.scard.open{border-color:var(--priv)}
-.scard.held{border-color:var(--prot);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--prot) 28%,transparent) 0 4px,transparent 4px 8px)}
-.scard.sel{outline:3px solid var(--ink);outline-offset:1px}
-.arrow{flex:none;align-self:center;width:40px;height:40px;border-radius:50%;border:0;background:color-mix(in srgb,var(--ins) 30%,var(--surface));font-size:22px}
-.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.dcol h4{font-size:14px;font-weight:700;text-align:center;position:sticky;top:0;background:#fff;padding:4px 0;margin-bottom:6px;z-index:1}
+.scard{display:block;width:100%;text-align:center;padding:8px 6px;margin-bottom:8px;border-radius:12px;border:2px solid var(--line);background:#fff;line-height:1.25}
+.scard b{display:block;font-size:17px;font-weight:500}.scard span{display:block;font-size:12px;color:var(--muted);text-transform:uppercase}.scard small{font-size:12px;color:var(--muted)}
+.scard.cov{border-color:var(--green)}.scard.pay{border-color:var(--blue)}.scard.open{border-color:var(--blue)}
+.scard.held{border-color:var(--amber);background:repeating-linear-gradient(135deg,var(--amber-l) 0 4px,#fff 4px 8px)}
+.arrow{flex:none;align-self:center;width:40px;height:40px;border-radius:50%;border:0;background:#bcd3fb;color:#fff;font-size:22px}
+.fig{margin:14px 0 0;overflow-x:auto}.fig svg{display:block;min-width:700px;width:100%;height:auto}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;max-width:78ch}
+svg text{fill:currentColor;font-family:var(--font)}
+svg .t{font-weight:700;font-size:13px}svg .ts{font-size:11px;fill:var(--muted)}svg .lb{font-size:11px;fill:var(--muted)}
+svg .nd{fill:#fff;stroke:var(--line);stroke-width:1.5}svg .nd.ac{stroke:var(--blue);stroke-width:2;fill:var(--blue-l)}
+svg .ar{fill:none;stroke:var(--muted);stroke-width:1.5}svg .ah{fill:var(--muted)}
+svg .sq-bp{fill:var(--blue)}svg .sq-bi{fill:var(--green)}
+svg .sq-open{fill:#fff;stroke:var(--blue);stroke-width:1.5}
+svg .sq-held{fill:url(#hatch);stroke:var(--amber);stroke-width:1.5}
+svg .sq-hid{fill:none;stroke:var(--muted);stroke-width:1.2;stroke-dasharray:3 3;opacity:.7}
+svg .chartline{fill:none;stroke:var(--blue);stroke-width:2.5}
+svg .grid-l{stroke:var(--line);stroke-width:1}
+svg .handle{fill:#fff;stroke:var(--blue);stroke-width:3;cursor:ns-resize;touch-action:none}
+.chartbox svg{display:block;width:100%;height:auto;max-width:560px;touch-action:none}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.ptable input{width:64px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+.step{background:var(--blue-l);border-radius:12px;padding:16px}
+.step i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;margin-bottom:8px}
+.step h3{margin-bottom:4px}
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
+.roles>div{border:1px solid var(--line);border-radius:10px;padding:14px}
+.roles h3{font-size:16px;margin-bottom:4px}
+.demo-tag{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:2px 7px;margin-right:4px}
+.gate{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:var(--bg)}
+.gcard{width:100%;max-width:420px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 30px rgba(17,24,39,.12)}
+.ghead{background:var(--blue);color:#fff;padding:20px 22px;display:flex;gap:14px;align-items:center}
+.gbody{padding:22px}.gbody input{width:100%}.gbody .btn{width:100%;margin-top:14px;padding:11px}
+.glang{display:flex;justify-content:flex-end;margin-bottom:12px}
+.glang .lang button{background:#fff;color:var(--blue-d);border:1px solid var(--blue)}.glang .lang button.on{background:var(--blue);color:#fff}
 @media (prefers-reduced-motion:no-preference){.card{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(4px)}}}
 </style>
 
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" style="fill:var(--surface)"/><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--prot);stroke-width:3;opacity:.55"/></pattern>
+<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#fff"/><line x1="0" y1="0" x2="0" y2="6" stroke="#f0b24a" stroke-width="3"/></pattern>
 <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="ah"/></marker>
 </defs></svg>
 
-<div class="wrap" id="app"></div>
+<div id="app"></div>
 
 <script>
 (function(){
 'use strict';
-/* ---------- helpers ---------- */
+/* ---------- language + helpers ---------- */
+const S={lang:'es',unlocked:false};
+const x=(en,es)=>S.lang==='es'?es:en;
+const LOC=()=>S.lang==='es'?'es-ES':'en-GB';
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const BASE=new Date(2026,10,3);
 const fmt=n=>{const d=new Date(BASE);d.setDate(d.getDate()+n);return d};
-const dl=n=>fmt(n).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-const dlong=n=>fmt(n).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+const dl=n=>cap(fmt(n).toLocaleDateString(LOC(),{weekday:'short',day:'numeric',month:'short'}));
+const dlong=n=>cap(fmt(n).toLocaleDateString(LOC(),{weekday:'long',day:'numeric',month:'long'}));
 const isWork=n=>{const w=fmt(n).getDay();return w>0&&w<6};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const clone=o=>JSON.parse(JSON.stringify(o));
 const hash=s=>{let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0};
 const mul=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
-const eur=n=>'€'+Math.round(n).toLocaleString('en-GB');
+const eur=n=>Math.round(n).toLocaleString(LOC())+' €';
+const cyrb=(str)=>{let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677)}h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return 4294967296*(2097151&h2)+(h1>>>0)};
+const GATE=5026005183694811;
+const bi=o=>Array.isArray(o)?x(o[0],o[1]):o;
 
 /* ---------- demo data ---------- */
 const TIMES=['09:00','09:15','09:30','09:45','10:00','10:15','10:30','10:45','16:00','16:15','16:30','16:45','17:00','17:15'];
 const W=[.2,.2,.25,.25,.45,.45,.55,.55,.8,.85,.9,.9,.85,.8]; // private demand weight: mornings are the valley, late afternoons are premium
-const PF=70,IF=35; // illustrative average fees (private, insurer)
+const PF=70,IF=35,DUR='15 min';
 const DOCS=[
- {id:'d1',name:'Dr. Elena Pérez',spec:'Cardiology',agr:'Percentage, high on private',noshow:.08,privShare:.5},
- {id:'d2',name:'Dr. Marcos Gómez',spec:'Cardiology',agr:'Percentage, high on private',noshow:.06,privShare:.45},
- {id:'d3',name:'Dr. Lucía Romero',spec:'Dermatology',agr:'Fixed rent',noshow:.1,privShare:.4}];
+ {id:'d1',n:'Elena Pérez',f:1,spec:'Cardiology',agr:['Percentage, high on private','Porcentaje, alto sobre privado'],noshow:.08,privShare:.5},
+ {id:'d2',n:'Marcos Gómez',f:0,spec:'Cardiology',agr:['Percentage, high on private','Porcentaje, alto sobre privado'],noshow:.06,privShare:.45},
+ {id:'d3',n:'Lucía Romero',f:1,spec:'Dermatology',agr:['Fixed rent','Alquiler fijo'],noshow:.1,privShare:.4}];
+const dn=d=>(S.lang==='es'&&d.f?'Dra. ':'Dr. ')+d.n;
+const SPEC={Cardiology:['Cardiology','Cardiología'],Dermatology:['Dermatology','Dermatología']};
+const sn=k=>bi(SPEC[k]);
 const INS=[
- {id:'adeslas',name:'Adeslas',weekly:10,maxWait:10,ref:'Contract AD-2231',prov:false},
- {id:'dkv',name:'DKV',weekly:5,maxWait:7,ref:'Contract DKV-0917',prov:false},
+ {id:'adeslas',name:'Adeslas',weekly:10,maxWait:10,ref:'AD-2231',prov:false},
+ {id:'dkv',name:'DKV',weekly:5,maxWait:7,ref:'DKV-0917',prov:false},
  {id:'sanitas',name:'Sanitas',weekly:0,maxWait:14,ref:'',prov:true}];
-const insName=id=>id==='private'?'Private':INS.find(i=>i.id===id).name;
+const insName=id=>id==='private'?x('Private','Privado'):INS.find(i=>i.id===id).name;
 const SIM={};
 DOCS.forEach(d=>{SIM[d.id]={};for(let n=0;n<45;n++){if(!isWork(n))continue;const r=mul(hash(d.id+n));
  SIM[d.id][n]=TIMES.map((t,i)=>{const w=W[i];if(r()>.5+.4*w)return null;
-  const priv=r()<Math.min(.85,d.privShare*(.5+w));const u=Math.max(r(),1e-6),x=r();
+  const priv=r()<Math.min(.85,d.privShare*(.5+w));const u=Math.max(r(),1e-6),q=r();
   let L=priv?Math.min(18,Math.floor(-Math.log(u)*4)):Math.min(40,3+Math.floor(-Math.log(u)*9));
-  return{payer:priv?'private':(x<.5?'adeslas':x<.8?'dkv':'sanitas'),bookedDay:n-L}})}});
+  return{payer:priv?'private':(q<.5?'adeslas':q<.8?'dkv':'sanitas'),bookedDay:n-L}})}});
 
 const STD={first:[{d:0,p:0},{d:1,p:5},{d:3,p:15},{d:7,p:35},{d:14,p:60}],rev:[{d:0,p:0},{d:1,p:0},{d:3,p:5},{d:7,p:15},{d:14,p:30}]};
 const PRESETS={
- short:{label:'Short curve (protection only up to 3 days)',first:[{d:0,p:0},{d:1,p:5},{d:3,p:15},{d:4,p:0},{d:14,p:0}],rev:[{d:0,p:0},{d:1,p:0},{d:3,p:5},{d:4,p:0},{d:14,p:0}]},
- zero:{label:'Zero protection',first:[{d:0,p:0},{d:14,p:0}],rev:[{d:0,p:0},{d:14,p:0}]},
- total:{label:'Total protection until 2 days before',first:[{d:0,p:0},{d:1,p:0},{d:2,p:100},{d:14,p:100}],rev:[{d:0,p:0},{d:1,p:0},{d:2,p:100},{d:14,p:100}]}};
+ short:{label:['Short curve (protection only up to 3 days)','Curva corta (protección solo hasta 3 días)'],first:[{d:0,p:0},{d:1,p:5},{d:3,p:15},{d:4,p:0},{d:14,p:0}],rev:[{d:0,p:0},{d:1,p:0},{d:3,p:5},{d:4,p:0},{d:14,p:0}]},
+ zero:{label:['Zero protection','Protección cero'],first:[{d:0,p:0},{d:14,p:0}],rev:[{d:0,p:0},{d:14,p:0}]},
+ total:{label:['Total protection until 2 days before','Protección total hasta 2 días antes'],first:[{d:0,p:0},{d:1,p:0},{d:2,p:100},{d:14,p:100}],rev:[{d:0,p:0},{d:1,p:0},{d:2,p:100},{d:14,p:100}]}};
+const pl=k=>bi(PRESETS[k].label);
+const REASONS=[['Recurring patient','Paciente recurrente'],['Urgency','Urgencia'],['Doctor request','Petición del médico'],['Other','Otro']];
+const rsn=v=>{const r=REASONS.find(a=>a[0]===v);return r?bi(r):v};
 
-const S={role:'how',today:0,horizon:30,
+Object.assign(S,{role:'how',today:0,horizon:30,
  clinic:{v:1,curves:clone(STD)},
- exc:{d2:{v:1,kind:'zero',curves:{first:clone(PRESETS.zero.first),rev:clone(PRESETS.zero.rev)},by:'Dr. Gómez (opt-out, approved by manager)',at:-12},
-      d3:{v:1,kind:'short',curves:{first:clone(PRESETS.short.first),rev:clone(PRESETS.short.rev)},by:'Fixed-rent agreement rule',at:-30}},
- ov:[{id:1,doc:'d1',day:8,type:'block',reason:'Private cardiology check-up campaign',author:'Manager',at:-2}],
+ exc:{d2:{v:1,kind:'zero',curves:{first:clone(PRESETS.zero.first),rev:clone(PRESETS.zero.rev)},by:['Dr. Gómez (opt-out, approved by manager)','Dr. Gómez (exclusión voluntaria, aprobada por el gerente)'],at:-12},
+      d3:{v:1,kind:'short',curves:{first:clone(PRESETS.short.first),rev:clone(PRESETS.short.rev)},by:['Fixed-rent agreement rule','Regla del acuerdo de alquiler fijo'],at:-30}},
+ ov:[{id:1,doc:'d1',day:8,type:'block',reason:['Private cardiology check-up campaign','Campaña privada de chequeos de cardiología'],author:['Manager','Gerente'],at:-2}],
  req:[{id:1,doc:'d1',kind:'total',status:'pending',at:0}],
  ub:{},ev:[],
- log:[{at:-30,who:'Manager',text:'Clinic default curve v1 activated.'},{at:-12,who:'Manager',text:'Approved opt-out for Dr. Marcos Gómez: zero protection.'}],
+ log:[{at:-30,who:['Manager','Gerente'],text:['Clinic default curve v1 activated.','Curva predeterminada v1 de la clínica activada.']},{at:-12,who:['Manager','Gerente'],text:['Approved opt-out for Dr. Marcos Gómez: zero protection.','Aprobada la exclusión del Dr. Marcos Gómez: protección cero.']}],
  pat:{payer:'adeslas',act:'first',spec:'Cardiology',off:0,sel:null,msg:null},heldMode:'hide',
- mg:{tab:'overview',scope:'clinic',draft:null,act:'first'},
+ mg:{tab:'overview',scope:'clinic',draft:null},
  aud:{doc:'d1',day:2,act:'first'},ovForm:{doc:'d1',day:3,type:'open',reason:''},
  dv:{doc:'d1',day:null,act:'first'},
- rc:{filter:'all',off:0,sel:null,payer:'adeslas',reason:'Recurring patient',act:'first',msg:null},
- lastTouched:null};
+ rc:{filter:'all',off:0,sel:null,payer:'adeslas',reason:'Recurring patient',act:'first',msg:null},gateErr:false});
+const logAdd=(en,es)=>S.log.unshift({at:S.today,who:['Manager','Gerente'],text:[en,es]});
 
 /* ---------- protection engine ---------- */
-function interp(p,D){const a=[...p].sort((x,y)=>x.d-y.d);if(D<=a[0].d)return a[0].p;const L=a[a.length-1];if(D>=L.d)return L.p;
- for(let i=1;i<a.length;i++)if(D<=a[i].d){const x=a[i-1],y=a[i];return x.p+(y.p-x.p)*(D-x.d)/(y.d-x.d)}return L.p}
+function interp(p,D){const a=[...p].sort((u,v)=>u.d-v.d);if(D<=a[0].d)return a[0].p;const L=a[a.length-1];if(D>=L.d)return L.p;
+ for(let i=1;i<a.length;i++)if(D<=a[i].d){const u=a[i-1],v=a[i];return u.p+(v.p-u.p)*(D-u.d)/(v.d-u.d)}return L.p}
+const kindName=k=>({zero:x('zero protection','protección cero'),short:x('short curve','curva corta'),total:x('total protection','protección total'),custom:x('custom curve','curva personalizada')}[k]||k);
 function curveSrc(docId,act){const e=S.exc[docId];
- if(e)return{pts:e.curves[act],label:'Doctor exception v'+e.v+' ('+kindName(e.kind)+')',ex:true};
- return{pts:S.clinic.curves[act],label:'Clinic default v'+S.clinic.v,ex:false}}
-const kindName=k=>({zero:'zero protection',short:'short curve',total:'total protection',custom:'custom curve'}[k]||k);
+ if(e)return{pts:e.curves[act],label:x('Doctor exception v','Excepción del médico v')+e.v+' ('+kindName(e.kind)+')',ex:true};
+ return{pts:S.clinic.curves[act],label:x('Clinic default v','Predeterminada de la clínica v')+S.clinic.v,ex:false}}
 function stat(dId,day,i){const ub=S.ub[dId+'|'+day+'|'+i];if(ub)return{payer:ub.payer,forced:ub.forced,user:true};
  const s=SIM[dId][day]&&SIM[dId][day][i];return s&&s.bookedDay<=S.today?{payer:s.payer}:null}
 function computeDay(doc,day,act,ptsIn){
@@ -218,13 +224,13 @@ function computeDay(doc,day,act,ptsIn){
  const free=slots.filter(s=>!s.st),pb=slots.filter(s=>s.st&&s.st.payer==='private').length;
  const pct=D>S.horizon?0:interp(pts,D),exp=pct/100*14;
  let prot=Math.min(free.length,Math.round(Math.max(0,exp*(1-doc.noshow)-pb)));
- const ov=S.ov.find(o=>o.doc===doc.id&&o.day===day),when=D===0?'today':D+' days ahead';
+ const ov=S.ov.find(o=>o.doc===doc.id&&o.day===day);
  let why;
- if(ov&&ov.type==='open'){prot=0;why='Manual: opened to insurers by '+ov.author+'. Reason: '+ov.reason+'.'}
- else if(ov&&ov.type==='block'){prot=free.length;why='Manual: blocked for private by '+ov.author+'. Reason: '+ov.reason+'.'}
- else if(D>S.horizon)why='Beyond the '+S.horizon+'-day protection horizon, so nothing is held.';
- else why=when+': curve '+Math.round(pct)+'% of 14 slots = '+exp.toFixed(1)+' expected private, × '+(1-doc.noshow).toFixed(2)+' attendance, minus '+pb+' already booked private = '+prot+' held of '+free.length+' free.';
- const order=[...free].sort((a,b)=>b.w-a.w||b.i-a.i);order.slice(0,prot).forEach(s=>s.prot=true);
+ if(ov&&ov.type==='open'){prot=0;why=()=>x('Manual: opened to insurers by ','Manual: abierto a aseguradoras por ')+bi(ov.author)+'. '+x('Reason: ','Motivo: ')+bi(ov.reason)+'.'}
+ else if(ov&&ov.type==='block'){prot=free.length;why=()=>x('Manual: held for private by ','Manual: reservado para privado por ')+bi(ov.author)+'. '+x('Reason: ','Motivo: ')+bi(ov.reason)+'.'}
+ else if(D>S.horizon)why=()=>x('Beyond the '+S.horizon+'-day protection horizon, so nothing is held.','Más allá del horizonte de protección de '+S.horizon+' días, no se protege nada.');
+ else{const p=prot,fr=free.length;why=()=>(D===0?x('Today','Hoy'):D+x(' days ahead',' días antes'))+': '+x('curve '+Math.round(pct)+'% of 14 slots = '+exp.toFixed(1)+' expected private, × '+(1-doc.noshow).toFixed(2)+' attendance, minus '+pb+' already booked private = '+p+' held of '+fr+' free.','curva '+Math.round(pct)+'% de 14 huecos = '+exp.toFixed(1)+' privados esperados, × '+(1-doc.noshow).toFixed(2)+' de asistencia, menos '+pb+' ya reservados como privado = '+p+' protegidos de '+fr+' libres.')}
+ [...free].sort((a,b)=>b.w-a.w||b.i-a.i).slice(0,prot).forEach(s=>s.prot=true);
  const res={};
  INS.forEach(ins=>{const fl=Math.ceil(ins.weekly/5);const vis=free.filter(s=>!s.prot);let rel=0;
   if(vis.length<fl){const c=free.filter(s=>s.prot).sort((a,b)=>a.w-b.w||a.i-b.i);while(vis.length<fl&&c.length){const s=c.shift();vis.push(s);s.rel[ins.id]=true;rel++}}
@@ -232,175 +238,148 @@ function computeDay(doc,day,act,ptsIn){
  return{D,pct,exp,pb,prot,free:free.length,slots,why,src,ov,ins:res,doc}}
 const workdays=(n,from)=>{const a=[];for(let d=from==null?S.today:from;a.length<n&&d<45;d++)if(isWork(d))a.push(d);return a};
 const nextWork=()=>{for(let d=S.today+1;d<45;d++)if(isWork(d))return d};
-function book(docId,day,i,payer,o){const k=docId+'|'+day+'|'+i;S.ub[k]={payer,forced:!!o.forced,reason:o.reason||'',by:o.channel};
+function book(docId,day,i,payer,o){S.ub[docId+'|'+day+'|'+i]={payer,forced:!!o.forced,reason:o.reason||'',by:o.channel};
  S.ev.unshift({at:S.today,doc:docId,day,time:TIMES[i],payer,channel:o.channel,forced:!!o.forced,reason:o.reason||''})}
 function estCost(docId,kind){const doc=DOCS.find(d=>d.id===docId),days=workdays(20);let a=0,b=0;
  const alt=PRESETS[kind].first;days.forEach(day=>{a+=computeDay(doc,day,'first',S.clinic.curves.first).prot;b+=computeDay(doc,day,'first',alt).prot});
- return kind==='zero'?{t:'private revenue at risk',v:a*.5*(PF-IF)}:{t:'insurer revenue forgone',v:Math.max(0,b-a)*.5*IF}}
+ return kind==='zero'?{t:x('private revenue at risk','ingresos privados en riesgo'),v:a*.5*(PF-IF)}:{t:x('insurer revenue forgone','ingresos de aseguradora perdidos'),v:Math.max(0,b-a)*.5*IF}}
 
 /* ---------- ui helpers ---------- */
-const sel=(id,opts,val,act,x)=>'<select id="'+id+'" data-c="'+act+'" '+(x||'')+'>'+opts.map(o=>'<option value="'+esc(o[0])+'"'+(String(o[0])===String(val)?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';
-const legend=(ins)=>'<div class="legend"><span><i class="o"></i>open</span><span><i class="h"></i>held for private</span><span><i class="bp"></i>booked private</span><span><i class="bi"></i>booked insurer</span>'+(ins?'<span><i class="x"></i>hidden from this insurer</span>':'')+'</div>';
-function slotCell(s,mode,pay){ // mode: 'all' shows everything with held marked
- if(s.st)return '<div class="slot '+(s.st.payer==='private'?'bp':'bi')+'">'+s.time+'<small>'+insName(s.st.payer)+(s.st.forced?' · forced':'')+'</small></div>';
- return s.prot?'<button class="slot held'+(mode.sel===s.i?' sel':'')+'" data-a="'+mode.a+'" data-i="'+s.i+'">'+s.time+'<small>held</small></button>'
-  :'<button class="slot open'+(mode.sel===s.i?' sel':'')+'" data-a="'+mode.a+'" data-i="'+s.i+'">'+s.time+'<small>open</small></button>'}
+const sel=(id,opts,val,act)=>'<select id="'+id+'" data-c="'+act+'">'+opts.map(o=>'<option value="'+esc(o[0])+'"'+(String(o[0])===String(val)?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';
+const actName=a=>a==='first'?x('First visit','Primera consulta'):x('Revision','Revisión');
+const ACTS=()=>[['first',actName('first')],['rev',actName('rev')]];
+const dot=c=>'<span class="dot" style="background:'+c+'"></span>';
+const legendSlots=()=>'<div class="legend"><span>'+dot('#fff;border:2px solid var(--blue)')+x('open','libre')+'</span><span>'+dot('var(--amber)')+x('held for private','protegido para privado')+'</span><span>'+dot('var(--blue)')+x('booked private','reservado privado')+'</span><span>'+dot('var(--green)')+x('booked insurer','reservado aseguradora')+'</span></div>';
+function slotCell(s){
+ if(s.st)return '<div class="slot '+(s.st.payer==='private'?'bp':'bi')+'">'+s.time+'<small>'+insName(s.st.payer)+(s.st.forced?' · '+x('forced','forzada'):'')+'</small></div>';
+ return '<div class="slot '+(s.prot?'held':'open')+'">'+s.time+'<small>'+(s.prot?x('held','protegido'):x('open','libre'))+'</small></div>'}
 const A={};
+const stateLabel=s=>s==='pending'?x('pending','pendiente'):s==='approved'?x('approved','aprobada'):x('declined','rechazada');
 
-/* ---------- diagrams ---------- */
-const node=(x,y,w,h,t,s,c)=>'<rect class="nd '+(c||'')+'" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10"/><text class="t" x="'+(x+12)+'" y="'+(y+24)+'">'+t+'</text>'+(Array.isArray(s)?s:[s]).map((l,i)=>'<text class="ts" x="'+(x+12)+'" y="'+(y+42+i*14)+'">'+l+'</text>').join('');
-const arrow=(p,both)=>'<polyline class="ar" points="'+p+'" marker-end="url(#arr)"'+(both?' marker-start="url(#arr)"':'')+'/>';
-const lab=(x,y,t,a)=>'<text class="lb" x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'">'+t+'</text>';
-function archSVG(){return '<svg viewBox="0 0 900 340" role="img" aria-label="A patient request goes to the slot resolver, which reads free slots from the single HIS agenda and the visibility rule from slot_visibility, then returns the filtered list. The protection engine writes slot_visibility from manager rules, booking history and free slots.">'
- +node(20,50,160,60,'Patient','web · app · voice agent')+node(20,250,160,60,'Reception','sees every slot')
- +node(240,150,150,60,'Slot resolver','answers every channel')
- +node(460,40,200,60,'HIS agenda','one calendar, free slots')+node(460,150,200,60,'slot_visibility','who may see each slot','ac')
- +node(740,140,150,80,'Protection engine',['nightly · on booking','on rule change'])
- +node(460,260,200,56,'Booking history','demand by payer and lead time')+node(740,270,150,56,'Manager rules','curves · floors · levers')
- +arrow('180,80 210,80 210,170 240,170',1)+lab(204,128,'asks for slots / gets list','end')
- +arrow('390,160 425,160 425,70 460,70')+lab(421,118,'1 free slots','end')
- +arrow('390,182 460,182',1)+lab(425,174,'2 who may see?','middle')
- +arrow('180,280 215,280 215,192 240,192')+lab(211,238,'all slots, held marked','end')
- +arrow('740,180 660,180')+lab(700,172,'writes + reason','middle')
- +arrow('660,70 815,70 815,140')+lab(742,62,'free slots','middle')
- +arrow('660,288 700,288 700,205 740,205')+lab(696,246,'history','end')
- +arrow('815,270 815,220')+lab(823,250,'rules')
- +'</svg>'}
-function compareSVG(){const sq=(x,y,c)=>'<rect class="'+c+'" x="'+x+'" y="'+y+'" width="18" height="18" rx="4"/>';
- let a='';for(let i=0;i<6;i++){a+=sq(30,50+i*24,'sq-open')+sq(110,50+i*24,'sq-bi')}
- let b='';for(let i=0;i<6;i++)b+=sq(430,50+i*24,'sq-open');
- let c='';for(let i=0;i<6;i++)c+=sq(640,50+i*24,'sq-open');
- let d='';for(let i=0;i<6;i++)d+=sq(790,50+i*24,i<4?'sq-open':'sq-hid');
- return '<svg viewBox="0 0 900 220" role="img" aria-label="Left: two separate agendas with fixed labels, which is avoided. Right: one agenda, with a visibility rule that shows a private patient all six free slots and an insurer patient four of them today.">'
- +'<text class="t" x="20" y="22">Avoided: two agendas</text>'+a+lab(30,44,'private pool')+lab(110,44,'insurer pool')
- +lab(150,100,'fixed labels, two sources of truth,')+lab(150,114,'cannot adapt as the date gets closer')
- +'<line x1="20" y1="200" x2="330" y2="200" class="grid-l"/>'
- +'<text class="t" x="410" y="22">Used: one agenda + visibility rule</text>'+lab(430,44,'single agenda')
- +arrow('456,100 560,100 560,70 630,70')+arrow('456,120 560,120 560,170 630,170')
- +'<text class="t" x="560" y="90" text-anchor="middle" style="display:none"></text>'
- +c+lab(640,44,'private patient sees 6')+d+lab(790,44,'insurer sees 4 today')
- +lab(500,196,'the rule decides per payer and per day; the agenda is never edited')+'</svg>'}
-function ladderSVG(){const rows=[['Manual override','one day or slot, with reason and author'],['Doctor + visit type','for example Dr. Romero, first visits'],['Doctor','exception or opt-out'],['Specialty','for example all cardiology'],['Clinic default','applies to everyone else']];
- let s='<svg viewBox="0 0 760 270" role="img" aria-label="Rule precedence from most specific to least specific: manual override, doctor plus visit type, doctor, specialty, clinic default. Payer floors apply after all of them.">';
- rows.forEach((r,i)=>{const y=14+i*40,x=24+i*14;s+='<rect class="nd'+(i===0?' ac':'')+'" x="'+x+'" y="'+y+'" width="'+(560-i*14)+'" height="32" rx="8"/><text class="t" x="'+(x+12)+'" y="'+(y+21)+'">'+(i+1)+'  '+r[0]+'</text><text class="ts" x="'+(x+210)+'" y="'+(y+20)+'">'+r[1]+'</text>'});
- s+='<text class="lb" x="600" y="40">most specific wins</text><polyline class="ar" points="650,52 650,170" marker-end="url(#arr)"/><text class="lb" x="600" y="186">fallback</text>';
- s+='<rect x="24" y="222" width="560" height="38" rx="8" fill="none" style="stroke:var(--prot);stroke-width:2;stroke-dasharray:6 4"/><text class="t" x="38" y="246">Payer floors apply last and never close: minimum visible slots and maximum wait</text></svg>';return s}
+/* ---------- diagrams (kept simple) ---------- */
+const node=(x0,y,w,h,t,s,c)=>'<rect class="nd '+(c||'')+'" x="'+x0+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10"/><text class="t" x="'+(x0+12)+'" y="'+(y+26)+'">'+t+'</text><text class="ts" x="'+(x0+12)+'" y="'+(y+45)+'">'+s+'</text>';
+const arrow=p=>'<polyline class="ar" points="'+p+'" marker-end="url(#arr)"/>';
+function flowSVG(){return '<svg viewBox="0 0 800 96" role="img" aria-label="'+x('Patient asks, the resolver checks the agenda and the rule, the patient gets the list for their payer.','El paciente pide, el sistema consulta la agenda y la regla, y devuelve la lista para su pagador.')+'">'
+ +node(4,10,170,64,x('Patient','Paciente'),x('web · app · agent','web · app · agente'))
+ +node(222,10,170,64,x('Slot finder','Buscador de huecos'),x('asks two sources','consulta dos fuentes'))
+ +node(440,10,170,64,x('Agenda + rule','Agenda + regla'),x('free slots · who sees them','huecos libres · quién los ve'),'ac')
+ +node(658,10,138,64,x('Your list','Tu lista'),x('only what you may see','solo lo que puedes ver'))
+ +arrow('174,42 222,42')+arrow('392,42 440,42')+arrow('610,42 658,42')+'</svg>'}
 function journeySVG(){const pts=S.clinic.curves.first,Ds=[14,7,3,1,0],pbA=[0,1,1,2,3],ibA=[1,2,3,3,3];
- let s='<svg viewBox="0 0 800 250" role="img" aria-label="The same day seen from 14 days out to the day itself. As the date approaches, private bookings arrive, and slots held for private patients are released to insurers.">';
- s+='<text class="t" x="150" y="16">Private patient sees</text><text class="t" x="490" y="16">Insurer patient sees</text>';
+ let s='<svg viewBox="0 0 800 250" role="img" aria-label="'+x('The same day from 14 days out to the day itself: held slots are released as the date nears.','El mismo día desde 14 días antes hasta el propio día: los huecos protegidos se liberan al acercarse la fecha.')+'">';
+ s+='<text class="t" x="150" y="16">'+x('Private patient sees','El paciente privado ve')+'</text><text class="t" x="490" y="16">'+x('Insured patient sees','El paciente asegurado ve')+'</text>';
  Ds.forEach((D,r)=>{const y=32+r*42,st=Array(14).fill('f');for(let i=0;i<ibA[r];i++)st[i]='bi';for(let i=0;i<pbA[r];i++)st[13-i]='bp';
   const free=st.map((v,i)=>v==='f'?i:-1).filter(i=>i>=0);const exp=interp(pts,D)/100*14;const prot=Math.min(free.length,Math.round(Math.max(0,exp*.92-pbA[r])));
-  const held=new Set(free.slice(-prot||free.length));if(!prot)held.clear();
-  s+='<text class="t" x="0" y="'+(y+14)+'">'+(D?D+' days ahead':'The day itself')+'</text><text class="ts" x="0" y="'+(y+29)+'">'+prot+' held of '+free.length+' free</text>';
+  const held=new Set(prot?free.slice(-prot):[]);
+  s+='<text class="t" x="0" y="'+(y+14)+'">'+(D?D+x(' days ahead',' días antes'):x('The day itself','El mismo día'))+'</text><text class="ts" x="0" y="'+(y+29)+'">'+prot+x(' held of ',' protegidos de ')+free.length+x(' free',' libres')+'</text>';
   for(let i=0;i<14;i++){const x1=150+i*23,x2=490+i*23,v=st[i],h=held.has(i);
    s+='<rect class="'+(v==='bp'?'sq-bp':v==='bi'?'sq-bi':h?'sq-held':'sq-open')+'" x="'+x1+'" y="'+y+'" width="19" height="26" rx="4"/>';
    s+='<rect class="'+(v==='bp'?'sq-bp':v==='bi'?'sq-bi':h?'sq-hid':'sq-open')+'" x="'+x2+'" y="'+y+'" width="19" height="26" rx="4"/>'}});
- s+='<text class="lb" x="150" y="246">09:00</text><text class="lb" x="418" y="246" text-anchor="end">17:15</text><text class="lb" x="490" y="246">09:00</text><text class="lb" x="758" y="246" text-anchor="end">17:15</text></svg>';return s}
+ return s+'<text class="lb" x="150" y="246">09:00</text><text class="lb" x="472" y="246" text-anchor="end">17:15</text><text class="lb" x="490" y="246">09:00</text><text class="lb" x="812" y="246" text-anchor="end">17:15</text></svg>'}
 
 /* ---------- views ---------- */
-function vHow(){return '<section class="card"><h2>One agenda, shown differently to each payer</h2>'
- +'<p class="muted">Price never changes. For every free slot, the system decides each day who is allowed to see it. Private patients always see all free slots. Insurer patients see them minus the ones still likely to be sold privately, and that hold shrinks as the date gets closer.</p>'
- +'<figure class="fig">'+archSVG()+'<figcaption>How a booking request flows. The resolver combines the HIS agenda with the visibility rule before answering any channel. If the engine fails, the resolver returns the full agenda, as today.</figcaption></figure></section>'
- +'<section class="card"><h3>Why it is a layer, not two agendas</h3><figure class="fig">'+compareSVG()+'<figcaption>Slots are never labelled "private" or "insurer". There is one slot and one rule that answers who sees it today.</figcaption></figure></section>'
- +'<section class="card"><h3>The same day, as the date gets closer</h3><p class="muted">Drawn live from the clinic default first-visit curve. Edit the curve in the Manager view and this picture changes.</p><figure class="fig">'+journeySVG()+legend(1)+'<figcaption>Protection falls on the premium late-afternoon slots first, and releases to insurers as private bookings arrive or the date approaches. Mornings (the valley) are never held first.</figcaption></figure></section>'
- +'<section class="card"><h3>Which rule applies</h3><figure class="fig">'+ladderSVG()+'<figcaption>The most specific rule that exists wins. Adding a doctor as an exception only means adding a row at level 2 or 3. Everyone else keeps following the clinic default.</figcaption></figure></section>'
- +'<section class="card"><h3>Four views, one shared state</h3><p class="muted">Use the role switcher above. A booking made in one view changes the availability in every other view.</p><div class="roles">'
- +[['patient','Patient','Books online. Sees only the slots their payer may see.',['Choose who pays','Pick doctor, day, time']],
- ['manager','Clinic manager','Owns the rules. Edits curves, floors and levers with a live preview.',['Edit and publish curves','Add doctor exceptions','Open or block a day']],
- ['doctor','Doctor','Read-only. Sees which curve applies and why each slot was held.',['See the audit reason','Request opt-out with cost']],
- ['reception','Receptionist','Sees every slot, with held ones marked. Can force a booking with a reason.',['Book any slot','Force into held slots']]]
- .map(r=>'<div><h3>'+r[1]+'</h3><p class="small muted">'+r[2]+'</p><ul>'+r[3].map(x=>'<li>'+x+'</li>').join('')+'</ul><button class="btn sm" data-a="role" data-r="'+r[0]+'">Open view</button></div>').join('')+'</div></section>'}
+function vHow(){const roles=[['patient',x('Patient','Paciente'),x('Books online. Sees only what their payer allows.','Reserva en línea. Ve solo lo que permite su pagador.')],
+  ['manager',x('Clinic manager','Gerente de clínica'),x('Sets the rules and edits the curve with a live preview.','Define las reglas y edita la curva con vista previa en vivo.')],
+  ['doctor',x('Doctor','Médico'),x('Read-only. Sees which rule applies and why.','Solo lectura. Ve qué regla se aplica y por qué.')],
+  ['reception',x('Reception','Recepción'),x('Sees every slot and can force a booking with a reason.','Ve todos los huecos y puede forzar una reserva con motivo.')]];
+ return '<section class="card"><h2>'+x('How it works','Cómo funciona')+'</h2><p class="muted">'+x('The price never changes. What changes is which slots each patient can see.','El precio nunca cambia. Lo que cambia es qué horarios puede ver cada paciente.')+'</p>'
+ +'<div class="steps"><div class="step"><i>1</i><h3>'+x('One agenda','Una sola agenda')+'</h3><p class="small">'+x('Each doctor keeps a single calendar. Slots are never split into "private" and "insurer".','Cada médico mantiene un único calendario. Los huecos nunca se dividen en «privado» y «aseguradora».')+'</p></div>'
+ +'<div class="step"><i>2</i><h3>'+x('A rule decides who sees each slot','Una regla decide quién ve cada hueco')+'</h3><p class="small">'+x('Private patients see every free slot. Insured patients see them too, except slots still likely to be sold privately.','Los pacientes privados ven todos los huecos libres. Los asegurados también, salvo los que aún se espera vender como privados.')+'</p></div>'
+ +'<div class="step"><i>3</i><h3>'+x('Protection fades as the date nears','La protección se reduce al acercarse la fecha')+'</h3><p class="small">'+x('The closer the day, the fewer slots are held. On the day, every free slot is open to everyone.','Cuanto más cerca el día, menos huecos protegidos. El mismo día, todos los huecos libres están abiertos a todos.')+'</p></div></div>'
+ +'<figure class="fig">'+flowSVG()+'</figure></section>'
+ +'<section class="card"><h3>'+x('See it on one day','Míralo en un solo día')+'</h3><p class="muted">'+x('Each square is a 15-minute slot. Amber squares are held for private patients and become open as the day gets closer.','Cada cuadro es un horario de 15 minutos. Los ámbar están protegidos para pacientes privados y se abren al acercarse el día.')+'</p>'
+ +'<figure class="fig">'+journeySVG()+'</figure>'+legendSlots()+'<div class="legend"><span>'+dot('transparent;border:1.5px dashed var(--muted)')+x('hidden from insured patients','oculto para pacientes asegurados')+'</span></div></section>'
+ +'<section class="card"><h3>'+x('Try it as each role','Pruébalo con cada rol')+'</h3><div class="roles">'+roles.map(r=>'<div><h3>'+r[1]+'</h3><p class="small muted" style="margin-bottom:10px">'+r[2]+'</p><button class="btn sm pri" data-a="role" data-r="'+r[0]+'">'+x('Open view','Abrir vista')+'</button></div>').join('')+'</div></section>'}
 
-const DUR='15 min';
-function dayCols(o){const days=workdays(24).slice(o.off,o.off+6);let hid=0;
- const h='<div class="dcwrap"><button class="arrow" data-a="'+o.pg+'" data-d="-1" aria-label="Earlier days">‹</button><div class="dcols">'+days.map(day=>{const items=[];
+function dayCols(o){const days=workdays(24).slice(o.off,o.off+6);let hid=0,n=0;
+ const h='<div class="dcwrap"><button class="arrow" data-a="'+o.pg+'" data-d="-1" aria-label="'+x('Earlier days','Días anteriores')+'">‹</button><div class="dcols">'+days.map(day=>{const items=[];
   o.docs.forEach(doc=>{const r=computeDay(doc,day,o.act);r.slots.forEach(sl=>{if(sl.st)return;let k;
    if(o.view==='pat'){if(o.payer==='private')k='pay';else if(sl.vis[o.payer])k='cov';else if(S.heldMode==='pay')k='pay';else{hid++;return}}
    else k=sl.prot?'held':'open';items.push({doc,sl,k})})});
-  items.sort((a,b)=>a.sl.i-b.sl.i||a.doc.id.localeCompare(b.doc.id));
+  items.sort((a,b)=>a.sl.i-b.sl.i||a.doc.id.localeCompare(b.doc.id));n+=items.length;
   return '<div class="dcol"><h4>'+dl(day)+'</h4>'+(items.length?items.map(it=>{const key=it.doc.id+'|'+day+'|'+it.sl.i;
-   return '<button class="scard '+it.k+(o.sel===key?' sel':'')+'" data-a="'+o.a+'" data-key="'+key+'"><b>'+it.sl.time+'</b><span>'+esc(it.doc.name)+'</span><small>'+DUR+' · '+(it.k==='cov'?'<s>'+PF+'€</s>':it.k==='held'?'held for private':PF+'€')+'</small></button>'}).join(''):'<p class="none" style="text-align:center">No slots</p>')+'</div>'}).join('')
-  +'</div><button class="arrow" data-a="'+o.pg+'" data-d="1" aria-label="Later days">›</button></div>';
- return{h,hid}}
+   return '<button class="scard '+it.k+(o.sel===key?' sel':'')+'" data-a="'+o.a+'" data-key="'+key+'"><b>'+it.sl.time+'</b><span>'+esc(dn(it.doc))+'</span><small>'+DUR+' · '+(it.k==='cov'?'<s>'+PF+' €</s>':it.k==='held'?x('held for private','protegido para privado'):PF+' €')+'</small></button>'}).join(''):'<p class="none" style="text-align:center">'+x('No slots','Sin horarios')+'</p>')+'</div>'}).join('')
+  +'</div><button class="arrow" data-a="'+o.pg+'" data-d="1" aria-label="'+x('Later days','Días posteriores')+'">›</button></div>';
+ return{h,hid,n}}
 function vPatient(){const p=S.pat,docs=DOCS.filter(d=>d.spec===p.spec);
- let h='<section class="card"><h2>Available times</h2><p class="muted">What a patient sees on the web, the app or the voice agent. The list depends on who pays.</p><div class="row">'
- +'<label>Who pays<br>'+sel('p-payer',[['private','Private (self-pay)'],...INS.map(i=>[i.id,i.name+' insurance'])],p.payer,'pPayer')+'</label>'
- +'<label>Visit type<br>'+sel('p-act',[['first','First visit'],['rev','Revision']],p.act,'pAct')+'</label>'
- +'<label>Specialty<br>'+sel('p-spec',[['Cardiology','Cardiology'],['Dermatology','Dermatology']],p.spec,'pSpec')+'</label>'
- +'<label><span class="demo-tag">demo setting</span> Held slots for insured patients<br>'+sel('p-held',[['hide','Hide them'],['pay','Show as payment required']],S.heldMode,'pHeld')+'</label></div></section>';
+ let h='<section class="card"><h2>'+x('Book an appointment','Reservar una cita')+'</h2><p class="muted">'+x('What a patient sees on the web, the app or the voice agent. The list depends on who pays.','Lo que ve un paciente en la web, la app o el agente de voz. La lista depende de quién paga.')+'</p><div class="row">'
+ +'<label>'+x('Who pays','Quién paga')+'<br>'+sel('p-payer',[['private',x('Private (self-pay)','Privado (pago propio)')],...INS.map(i=>[i.id,x(i.name+' insurance','Seguro '+i.name)])],p.payer,'pPayer')+'</label>'
+ +'<label>'+x('Visit type','Tipo de visita')+'<br>'+sel('p-act',ACTS(),p.act,'pAct')+'</label>'
+ +'<label>'+x('Specialty','Especialidad')+'<br>'+sel('p-spec',Object.keys(SPEC).map(k=>[k,sn(k)]),p.spec,'pSpec')+'</label>'
+ +'<label><span class="demo-tag">demo</span>'+x('Held slots for insured patients','Huecos protegidos para asegurados')+'<br>'+sel('p-held',[['hide',x('Hide them','Ocultarlos')],['pay',x('Show as payment required','Mostrar como pago requerido')]],S.heldMode,'pHeld')+'</label></div></section>';
  const c=dayCols({docs,act:p.act,view:'pat',payer:p.payer,off:p.off,sel:p.sel,pg:'pPg',a:'pCard'});
- h+='<section class="card"><h3>Available times</h3><div class="legend"><span><span class="dot" style="background:var(--ok)"></span>Covered</span><span><span class="dot" style="background:var(--ins)"></span>Payment required</span></div>';
+ h+='<section class="card"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center"><h3><span class="ic">▦</span> '+x('Available times','Horarios disponibles')+'</h3><span class="count">'+c.n+' '+x('times found','horarios encontrados')+'</span></div>'
+ +'<div class="legend"><span>'+dot('var(--green)')+x('Covered','Cubierto')+'</span><span>'+dot('var(--blue)')+x('Payment required','Pago requerido')+'</span></div>';
  if(p.msg)h+='<div class="note '+(p.msg.bad?'bad':'good')+'">'+esc(p.msg.t)+'</div>';
  h+=c.h;
- if(p.sel){const [di,dy,i]=p.sel.split('|'),doc=DOCS.find(x=>x.id===di),cov=p.payer!=='private'&&computeDay(doc,+dy,p.act).slots[+i].vis[p.payer];
-  h+='<div class="row"><div>Book <b>'+esc(doc.name)+'</b>, '+dlong(+dy)+' at <b>'+TIMES[+i]+'</b>, '+(cov?'covered by <b>'+insName(p.payer)+'</b>.':'<b>self-pay, '+PF+'€</b>.')+'</div><button class="btn pri" data-a="pBook">Confirm booking</button></div>'}
- h+='<p class="small muted" style="margin-top:14px"><span class="demo-tag">demo note</span> '+(p.payer==='private'?'A private patient sees every free slot.':c.hid+' free slots in these six days are '+(S.heldMode==='hide'?'hidden from this patient':'shown as payment required')+' because they are held for private patients.')+'</p></section>';
+ if(p.sel){const [di,dy,i]=p.sel.split('|'),doc=DOCS.find(q=>q.id===di),cov=p.payer!=='private'&&computeDay(doc,+dy,p.act).slots[+i].vis[p.payer];
+  h+='<div class="row"><div>'+x('Book','Reservar')+' <b>'+esc(dn(doc))+'</b>, '+dlong(+dy)+' · <b>'+TIMES[+i]+'</b> · '+(cov?'<span class="pill ok">'+x('Covered by ','Cubierto por ')+insName(p.payer)+'</span>':'<span class="pill blue">'+x('Self-pay ','Pago propio ')+PF+' €</span>')+'</div><button class="btn pri" data-a="pBook">'+x('Confirm booking','Confirmar reserva')+'</button></div>'}
+ h+='<p class="small muted" style="margin-top:14px"><span class="demo-tag">demo</span>'+(p.payer==='private'?x('A private patient sees every free slot.','Un paciente privado ve todos los huecos libres.'):c.hid+x(' free slots in these six days are '+(S.heldMode==='hide'?'hidden from this patient':'shown as payment required')+' because they are held for private patients.',' huecos libres de estos seis días están '+(S.heldMode==='hide'?'ocultos para este paciente':'como pago requerido')+' porque se protegen para pacientes privados.'))+'</p></section>';
  return h}
 A.pPayer=(d,t,v)=>{S.pat.payer=v;S.pat.sel=null;S.pat.msg=null};A.pAct=(d,t,v)=>{S.pat.act=v;S.pat.sel=null};
 A.pSpec=(d,t,v)=>{S.pat.spec=v;S.pat.sel=null;S.pat.off=0};A.pHeld=(d,t,v)=>{S.heldMode=v;S.pat.sel=null};
 A.pPg=d=>{S.pat.off=Math.max(0,Math.min(18,S.pat.off+3*+d.d))};A.pCard=d=>{S.pat.sel=d.key;S.pat.msg=null};
-A.pBook=()=>{const p=S.pat,[di,dy,i]=p.sel.split('|'),doc=DOCS.find(x=>x.id===di),day=+dy,sl=computeDay(doc,day,p.act).slots[+i];
+A.pBook=()=>{const p=S.pat,[di,dy,i]=p.sel.split('|'),doc=DOCS.find(q=>q.id===di),day=+dy,sl=computeDay(doc,day,p.act).slots[+i];
  const cov=p.payer!=='private'&&sl.vis[p.payer];
- if(sl.st||(p.payer!=='private'&&!cov&&S.heldMode!=='pay')){p.msg={bad:1,t:'That slot is no longer available for you. Please pick another time.'};p.sel=null;return}
- book(doc.id,day,+i,cov?p.payer:'private',{channel:'Web'});p.msg={t:'Booked: '+doc.name+', '+dlong(day)+' at '+TIMES[+i]+(cov?' (covered)':' (self-pay)')+'. The slot was checked against the live agenda and rule again before confirming.'};p.sel=null};
+ if(sl.st||(p.payer!=='private'&&!cov&&S.heldMode!=='pay')){p.msg={bad:1,t:x('That slot is no longer available for you. Please pick another time.','Ese horario ya no está disponible para ti. Elige otro.')};p.sel=null;return}
+ book(doc.id,day,+i,cov?p.payer:'private',{channel:'Web'});
+ p.msg={t:x('Booked: ','Reservado: ')+dn(doc)+', '+dlong(day)+' · '+TIMES[+i]+(cov?x(' (covered)',' (cubierto)'):x(' (self-pay)',' (pago propio)'))+'. '+x('The slot was checked again against the live agenda and rule before confirming.','El horario se verificó de nuevo con la agenda y la regla en vivo antes de confirmar.')};p.sel=null};
 
 /* curve editor */
 function chartSVG(pts,act,ed){const w=520,h=210,l=40,r=14,t=14,b=32,pw=w-l-r,ph=h-t-b,X=d=>l+(21-d)/21*pw,Y=p=>t+(1-p/100)*ph;
- const a=[...pts].sort((x,y)=>y.d-x.d);let s='<svg viewBox="0 0 '+w+' '+h+'" id="chart-'+act+'" role="img" aria-label="Protection curve: percent of slots held for private patients by days before the appointment">';
+ const a=[...pts].sort((u,v)=>v.d-u.d);let s='<svg viewBox="0 0 '+w+' '+h+'" id="chart-'+act+'" role="img" aria-label="'+x('Protection curve: percent of slots held for private patients by days before the appointment','Curva de protección: porcentaje de huecos protegidos para privados según los días de antelación')+'">';
  [0,25,50,75,100].forEach(p=>s+='<line class="grid-l" x1="'+l+'" x2="'+(w-r)+'" y1="'+Y(p)+'" y2="'+Y(p)+'"/><text class="lb" x="'+(l-6)+'" y="'+(Y(p)+4)+'" text-anchor="end">'+p+'%</text>');
  [21,14,7,3,0].forEach(d=>s+='<text class="lb" x="'+X(d)+'" y="'+(h-12)+'" text-anchor="middle">'+d+'d</text>');
- s+='<text class="lb" x="'+(l+pw/2)+'" y="'+(h-1)+'" text-anchor="middle">days before the appointment</text>';
- const line=a.map(q=>X(q.d)+','+Y(q.p)).join(' ');
+ s+='<text class="lb" x="'+(l+pw/2)+'" y="'+(h-1)+'" text-anchor="middle">'+x('days before the appointment','días antes de la cita')+'</text>';
  if(a[0].d<21)s+='<line x1="'+X(21)+'" x2="'+X(a[0].d)+'" y1="'+Y(a[0].p)+'" y2="'+Y(a[0].p)+'" class="chartline" style="stroke-dasharray:4 4;opacity:.6"/>';
- s+='<polyline class="chartline" points="'+line+'"/>';
- a.forEach(q=>{const i=pts.indexOf(q);s+=(ed?'<circle class="handle" data-i="'+i+'" cx="'+X(q.d)+'" cy="'+Y(q.p)+'" r="8"/>':'<circle cx="'+X(q.d)+'" cy="'+Y(q.p)+'" r="4" style="fill:var(--priv)"/>')+'<text class="lb" x="'+X(q.d)+'" y="'+(Y(q.p)-12)+'" text-anchor="middle" style="fill:var(--ink)">'+Math.round(q.p)+'%</text>'});
+ s+='<polyline class="chartline" points="'+a.map(q=>X(q.d)+','+Y(q.p)).join(' ')+'"/>';
+ a.forEach(q=>{const i=pts.indexOf(q);s+=(ed?'<circle class="handle" data-i="'+i+'" cx="'+X(q.d)+'" cy="'+Y(q.p)+'" r="8"/>':'<circle cx="'+X(q.d)+'" cy="'+Y(q.p)+'" r="4" fill="#3b82f6"/>')+'<text class="lb" x="'+X(q.d)+'" y="'+(Y(q.p)-12)+'" text-anchor="middle" style="fill:var(--ink)">'+Math.round(q.p)+'%</text>'});
  return s+'</svg>'}
-const actName=a=>a==='first'?'First visit':'Revision';
-function scopeInfo(){const sc=S.mg.scope;if(sc==='clinic')return{label:'Clinic default',cur:S.clinic.curves,v:S.clinic.v,exists:true};
- const e=S.exc[sc];return{label:DOCS.find(d=>d.id===sc).name,cur:e&&e.curves,v:e&&e.v,exists:!!e,e}}
+function scopeInfo(){const sc=S.mg.scope;if(sc==='clinic')return{label:x('Clinic default','Predeterminada de la clínica'),cur:S.clinic.curves,v:S.clinic.v,exists:true};
+ const e=S.exc[sc];return{label:dn(DOCS.find(d=>d.id===sc)),cur:e&&e.curves,v:e&&e.v,exists:!!e,e}}
 function ensureDraft(){const si=scopeInfo();if(si.exists&&(!S.mg.draft||S.mg.draft.scope!==S.mg.scope))S.mg.draft={scope:S.mg.scope,curves:clone(si.cur)};if(!si.exists)S.mg.draft=null}
 function impactRows(){const sc=S.mg.scope,d=S.mg.draft;if(!d)return '';
- const docs=sc==='clinic'?DOCS.filter(x=>!S.exc[x.id]):[DOCS.find(x=>x.id===sc)];const nx=nextWork(),days=workdays(7);
- const c=n=>{const t=n;return t};
- let h='<div class="scroll"><table><thead><tr><th>Doctor</th><th>Visit</th><th>Adeslas, tomorrow ('+dl(nx)+')</th><th>Adeslas, next 7 working days</th></tr></thead><tbody>';
+ const docs=sc==='clinic'?DOCS.filter(q=>!S.exc[q.id]):[DOCS.find(q=>q.id===sc)];const nx=nextWork(),days=workdays(7);
+ let h='<div class="scroll"><table><thead><tr><th>'+x('Doctor','Médico')+'</th><th>'+x('Visit','Visita')+'</th><th>'+x('Adeslas, tomorrow','Adeslas, mañana')+' ('+dl(nx)+')</th><th>'+x('Adeslas, next 7 working days','Adeslas, próximos 7 días laborables')+'</th></tr></thead><tbody>';
  docs.forEach(doc=>['first','rev'].forEach(act=>{const cur=sc==='clinic'?S.clinic.curves[act]:S.exc[sc].curves[act];const f=(pts,ds)=>ds.reduce((a,day)=>a+computeDay(doc,day,act,pts).ins.adeslas.n,0);
   const t0=f(cur,[nx]),t1=f(d.curves[act],[nx]),w0=f(cur,days),w1=f(d.curves[act],days);
-  const df=(a,b)=>a===b?'<span class="muted">no change</span>':'<b>'+a+' → '+b+'</b> <span class="pill '+(b>a?'ins':'priv')+'">'+(b>a?'+':'')+(b-a)+'</span>';
-  h+='<tr><td>'+esc(doc.name)+'</td><td>'+actName(act)+'</td><td class="mono">'+df(t0,t1)+'</td><td class="mono">'+df(w0,w1)+'</td></tr>'}));
+  const df=(a,b)=>a===b?'<span class="muted">'+x('no change','sin cambios')+'</span>':'<b>'+a+' → '+b+'</b> <span class="pill '+(b>a?'ok':'blue')+'">'+(b>a?'+':'')+(b-a)+'</span>';
+  h+='<tr><td>'+esc(dn(doc))+'</td><td>'+actName(act)+'</td><td>'+df(t0,t1)+'</td><td>'+df(w0,w1)+'</td></tr>'}));
  return h+'</tbody></table></div>'}
 function vCurves(){ensureDraft();const si=scopeInfo(),sc=S.mg.scope,dr=S.mg.draft;
  const dirty=dr&&JSON.stringify(dr.curves)!==JSON.stringify(si.cur);
- let h='<section class="card"><h3>Protection curves</h3><p class="muted">Each point says how many of the day\'s 14 slots are expected to be booked privately by the time the date is that close. Drag a point or type a number. The active version stays live until you publish.</p><div class="row">'
- +'<label>Applies to<br>'+sel('mg-scope',[['clinic','Clinic default (all doctors)'],...DOCS.map(d=>[d.id,d.name+(S.exc[d.id]?' · exception':'')])],sc,'mgScope')+'</label>'
- +'<div class="small muted">'+(sc==='clinic'?'Used by every doctor without an exception.':'Source of the rule: '+(si.exists?esc(si.e.by):'currently follows the clinic default'))+'</div></div>';
- if(!si.exists){h+='<div class="note warn">'+esc(si.label)+' has no exception, so the clinic default applies. Create one to change only this doctor.</div><div class="row">'
-  +'<button class="btn pri" data-a="mgCreate" data-p="copy">Create exception (copy of default)</button>'+Object.keys(PRESETS).map(k=>'<button class="btn" data-a="mgCreate" data-p="'+k+'">'+PRESETS[k].label+'</button>').join('')+'</div></section>';return h}
- h+='<div class="row"><span class="pill priv">Active v'+si.v+'</span>'+(dirty?'<span class="pill warn">Draft with unpublished changes</span>':'<span class="pill ok">Draft equals active</span>')+'</div></section>';
+ let h='<section class="card"><h3>'+x('Protection curves','Curvas de protección')+'</h3><p class="muted">'+x("Each point says how many of the day's 14 slots are expected to be booked privately by the time the date is that close. Drag a point or type a number. The active version stays live until you publish.",'Cada punto indica cuántos de los 14 huecos del día se espera reservar como privados cuando falte ese tiempo. Arrastra un punto o escribe un número. La versión activa sigue vigente hasta que publiques.')+'</p><div class="row">'
+ +'<label>'+x('Applies to','Se aplica a')+'<br>'+sel('mg-scope',[['clinic',x('Clinic default (all doctors)','Predeterminada de la clínica (todos)')],...DOCS.map(d=>[d.id,dn(d)+(S.exc[d.id]?' · '+x('exception','excepción'):'')])],sc,'mgScope')+'</label>'
+ +'<div class="small muted">'+(sc==='clinic'?x('Used by every doctor without an exception.','La usan todos los médicos sin excepción.'):x('Source of the rule: ','Origen de la regla: ')+(si.exists?esc(bi(si.e.by)):x('currently follows the clinic default','sigue la predeterminada de la clínica')))+'</div></div>';
+ if(!si.exists){h+='<div class="note warn">'+esc(si.label)+x(' has no exception, so the clinic default applies. Create one to change only this doctor.',' no tiene excepción, así que se aplica la predeterminada. Crea una para cambiar solo a este médico.')+'</div><div class="row">'
+  +'<button class="btn pri" data-a="mgCreate" data-p="copy">'+x('Create exception (copy of default)','Crear excepción (copia de la predeterminada)')+'</button>'+Object.keys(PRESETS).map(k=>'<button class="btn" data-a="mgCreate" data-p="'+k+'">'+pl(k)+'</button>').join('')+'</div></section>';return h}
+ h+='<div class="row"><span class="pill blue">'+x('Active v','Activa v')+si.v+'</span>'+(dirty?'<span class="pill warn">'+x('Draft with unpublished changes','Borrador con cambios sin publicar')+'</span>':'<span class="pill ok">'+x('Draft equals active','Borrador igual a la activa')+'</span>')+'</div></section>';
  h+='<div class="two">'+['first','rev'].map(act=>{const pts=[...dr.curves[act]].sort((a,b)=>a.d-b.d);
-  return '<section class="card"><h3>'+actName(act)+'</h3><div class="chartbox" id="cb-'+act+'">'+chartSVG(dr.curves[act],act,true)+'</div><div class="scroll"><table class="ptable"><thead><tr><th>Days before</th><th>% of slots held</th><th>≈ slots of 14</th><th></th></tr></thead><tbody>'
-  +pts.map(q=>{const i=dr.curves[act].indexOf(q);return '<tr><td><input type="number" id="pt-'+act+'-'+i+'-d" min="0" max="21" value="'+q.d+'" data-c="ptD" data-act="'+act+'" data-i="'+i+'" aria-label="Days before"></td><td><input type="number" id="pt-'+act+'-'+i+'-p" min="0" max="100" value="'+Math.round(q.p)+'" data-c="ptP" data-act="'+act+'" data-i="'+i+'" aria-label="Percent held"></td><td class="mono">'+(q.p/100*14).toFixed(1)+'</td><td>'+(pts.length>2?'<button class="btn sm" data-a="ptDel" data-act="'+act+'" data-i="'+i+'">Remove</button>':'')+'</td></tr>'}).join('')
-  +'</tbody></table></div><div class="row"><button class="btn sm" data-a="ptAdd" data-act="'+act+'">Add point</button></div></section>'}).join('')+'</div>';
- h+='<section class="card"><h3>Preview before publishing</h3><p class="muted">What an Adeslas patient would see with the draft, compared with the active curve, on the real agenda.</p>'+impactRows()
- +'<div class="row"><span class="small muted">Presets for the draft:</span>'+['short','zero','total'].map(k=>'<button class="btn sm" data-a="mgPreset" data-p="'+k+'">'+PRESETS[k].label+'</button>').join('')+'<button class="btn sm" data-a="mgPreset" data-p="std">Clinic standard</button></div>'
- +'<div class="row"><button class="btn pri" data-a="mgPublish"'+(dirty?'':' disabled')+'>Publish as v'+(si.v+1)+' (valid from today)</button><button class="btn" data-a="mgDiscard"'+(dirty?'':' disabled')+'>Discard draft</button>'+(sc!=='clinic'?'<button class="btn bad" data-a="mgRemove">Remove exception</button>':'')+'</div>'
- +'<p class="small muted" style="margin-top:10px">A published change never hides a slot that an insurer patient can already see. It only affects later calculations.</p></section>';return h}
+  return '<section class="card"><h3>'+actName(act)+'</h3><div class="chartbox" id="cb-'+act+'">'+chartSVG(dr.curves[act],act,true)+'</div><div class="scroll"><table class="ptable"><thead><tr><th>'+x('Days before','Días antes')+'</th><th>'+x('% held','% protegido')+'</th><th>'+x('≈ slots of 14','≈ huecos de 14')+'</th><th></th></tr></thead><tbody>'
+  +pts.map(q=>{const i=dr.curves[act].indexOf(q);return '<tr><td><input type="number" id="pt-'+act+'-'+i+'-d" min="0" max="21" value="'+q.d+'" data-c="ptD" data-act="'+act+'" data-i="'+i+'" aria-label="'+x('Days before','Días antes')+'"></td><td><input type="number" id="pt-'+act+'-'+i+'-p" min="0" max="100" value="'+Math.round(q.p)+'" data-c="ptP" data-act="'+act+'" data-i="'+i+'" aria-label="% held"></td><td>'+(q.p/100*14).toFixed(1)+'</td><td>'+(pts.length>2?'<button class="btn sm" data-a="ptDel" data-act="'+act+'" data-i="'+i+'">'+x('Remove','Quitar')+'</button>':'')+'</td></tr>'}).join('')
+  +'</tbody></table></div><div class="row"><button class="btn sm" data-a="ptAdd" data-act="'+act+'">'+x('Add point','Añadir punto')+'</button></div></section>'}).join('')+'</div>';
+ h+='<section class="card"><h3>'+x('Preview before publishing','Vista previa antes de publicar')+'</h3><p class="muted">'+x('What an Adeslas patient would see with the draft, compared with the active curve, on the real agenda.','Lo que vería un paciente de Adeslas con el borrador, frente a la curva activa, sobre la agenda real.')+'</p>'+impactRows()
+ +'<div class="row"><span class="small muted">'+x('Presets for the draft:','Plantillas para el borrador:')+'</span>'+['short','zero','total'].map(k=>'<button class="btn sm" data-a="mgPreset" data-p="'+k+'">'+pl(k)+'</button>').join('')+'<button class="btn sm" data-a="mgPreset" data-p="std">'+x('Clinic standard','Estándar de la clínica')+'</button></div>'
+ +'<div class="row"><button class="btn pri" data-a="mgPublish"'+(dirty?'':' disabled')+'>'+x('Publish as v','Publicar como v')+(si.v+1)+' '+x('(valid from today)','(válida desde hoy)')+'</button><button class="btn" data-a="mgDiscard"'+(dirty?'':' disabled')+'>'+x('Discard draft','Descartar borrador')+'</button>'+(sc!=='clinic'?'<button class="btn bad" data-a="mgRemove">'+x('Remove exception','Quitar excepción')+'</button>':'')+'</div>'
+ +'<p class="small muted" style="margin-top:10px">'+x('A published change never hides a slot that an insured patient can already see. It only affects later calculations.','Un cambio publicado nunca oculta un hueco que un paciente asegurado ya puede ver. Solo afecta a los cálculos posteriores.')+'</p></section>';return h}
 A.mgScope=(d,t,v)=>{S.mg.scope=v;S.mg.draft=null};
-A.mgCreate=d=>{const sc=S.mg.scope,p=d.p==='copy'?{label:'copy of clinic default',first:clone(S.clinic.curves.first),rev:clone(S.clinic.curves.rev)}:PRESETS[d.p];
- S.exc[sc]={v:1,kind:d.p==='copy'?'custom':d.p,curves:{first:clone(p.first),rev:clone(p.rev)},by:'Manager decision',at:S.today};
- S.log.unshift({at:S.today,who:'Manager',text:'Created exception for '+DOCS.find(x=>x.id===sc).name+': '+p.label+'.'});S.mg.draft=null};
+A.mgCreate=d=>{const sc=S.mg.scope,p=d.p==='copy'?{label:['copy of clinic default','copia de la predeterminada'],first:clone(S.clinic.curves.first),rev:clone(S.clinic.curves.rev)}:PRESETS[d.p];
+ S.exc[sc]={v:1,kind:d.p==='copy'?'custom':d.p,curves:{first:clone(p.first),rev:clone(p.rev)},by:['Manager decision','Decisión del gerente'],at:S.today};
+ logAdd('Created exception for '+DOCS.find(q=>q.id===sc).n+': '+p.label[0]+'.','Creada excepción para '+DOCS.find(q=>q.id===sc).n+': '+p.label[1]+'.');S.mg.draft=null};
 A.mgPreset=d=>{const p=d.p==='std'?S.clinic.curves:PRESETS[d.p];S.mg.draft.curves={first:clone(p.first),rev:clone(p.rev)}};
 A.mgDiscard=()=>{S.mg.draft=null};
-A.mgRemove=()=>{const sc=S.mg.scope;delete S.exc[sc];S.log.unshift({at:S.today,who:'Manager',text:'Removed exception for '+DOCS.find(x=>x.id===sc).name+'. Clinic default applies.'});S.mg.draft=null};
-function diffText(a,b){const out=[];['first','rev'].forEach(act=>{const m=new Map(a[act].map(q=>[q.d,q.p]));b[act].forEach(q=>{if(!m.has(q.d))out.push(actName(act)+' '+q.d+'d new '+q.p+'%');else if(m.get(q.d)!==q.p)out.push(actName(act)+' '+q.d+'d '+m.get(q.d)+'%→'+q.p+'%')});a[act].forEach(q=>{if(!b[act].some(x=>x.d===q.d))out.push(actName(act)+' '+q.d+'d removed')})});return out.join('; ')}
+A.mgRemove=()=>{const sc=S.mg.scope;delete S.exc[sc];logAdd('Removed exception for '+DOCS.find(q=>q.id===sc).n+'. Clinic default applies.','Quitada la excepción de '+DOCS.find(q=>q.id===sc).n+'. Se aplica la predeterminada.');S.mg.draft=null};
+function diffText(a,b){const out=[];['first','rev'].forEach(act=>{const m=new Map(a[act].map(q=>[q.d,q.p]));b[act].forEach(q=>{if(!m.has(q.d))out.push(act+' '+q.d+'d new '+q.p+'%');else if(m.get(q.d)!==q.p)out.push(act+' '+q.d+'d '+m.get(q.d)+'%→'+q.p+'%')});a[act].forEach(q=>{if(!b[act].some(z=>z.d===q.d))out.push(act+' '+q.d+'d removed')})});return out.join('; ')}
 A.mgPublish=()=>{const sc=S.mg.scope,si=scopeInfo(),dr=S.mg.draft,df=diffText(si.cur,dr.curves);
- if(sc==='clinic'){S.clinic.v++;S.clinic.curves=clone(dr.curves)}else{const e=S.exc[sc];e.v++;e.curves=clone(dr.curves);e.kind='custom';e.by='Manager decision'}
- S.log.unshift({at:S.today,who:'Manager',text:'Published '+(sc==='clinic'?'clinic default v'+S.clinic.v:DOCS.find(x=>x.id===sc).name+' exception v'+S.exc[sc].v)+'. Changes: '+df});S.mg.draft=null};
+ if(sc==='clinic'){S.clinic.v++;S.clinic.curves=clone(dr.curves)}else{const e=S.exc[sc];e.v++;e.curves=clone(dr.curves);e.kind='custom';e.by=['Manager decision','Decisión del gerente']}
+ const nm=sc==='clinic'?'v'+S.clinic.v:DOCS.find(q=>q.id===sc).n+' v'+S.exc[sc].v;
+ logAdd('Published '+(sc==='clinic'?'clinic default ':'exception ')+nm+'. Changes: '+df,'Publicada '+(sc==='clinic'?'predeterminada de la clínica ':'excepción ')+nm+'. Cambios: '+df);S.mg.draft=null};
 A.ptP=(d,t,v)=>{S.mg.draft.curves[d.act][+d.i].p=Math.max(0,Math.min(100,+v||0))};
 A.ptD=(d,t,v)=>{S.mg.draft.curves[d.act][+d.i].d=Math.max(0,Math.min(21,Math.round(+v||0)))};
 A.ptDel=d=>{S.mg.draft.curves[d.act].splice(+d.i,1)};
-A.ptAdd=d=>{const a=[...S.mg.draft.curves[d.act]].sort((x,y)=>x.d-y.d);let bi=-1,bg=1;for(let i=1;i<a.length;i++)if(a[i].d-a[i-1].d>bg){bg=a[i].d-a[i-1].d;bi=i}
- if(bi<0){const m=a[a.length-1].d+1;if(m<=21)S.mg.draft.curves[d.act].push({d:m,p:a[a.length-1].p});return}
- const nd=Math.floor((a[bi].d+a[bi-1].d)/2);S.mg.draft.curves[d.act].push({d:nd,p:Math.round(interp(a,nd))})};
+A.ptAdd=d=>{const a=[...S.mg.draft.curves[d.act]].sort((u,v)=>u.d-v.d);let bi2=-1,bg=1;for(let i=1;i<a.length;i++)if(a[i].d-a[i-1].d>bg){bg=a[i].d-a[i-1].d;bi2=i}
+ if(bi2<0){const m=a[a.length-1].d+1;if(m<=21)S.mg.draft.curves[d.act].push({d:m,p:a[a.length-1].p});return}
+ const nd=Math.floor((a[bi2].d+a[bi2-1].d)/2);S.mg.draft.curves[d.act].push({d:nd,p:Math.round(interp(a,nd))})};
 let drag=null;
 document.addEventListener('pointerdown',e=>{const c=e.target.closest&&e.target.closest('.handle');if(!c||!S.mg.draft)return;e.preventDefault();drag={act:c.closest('svg').id.slice(6),i:+c.dataset.i}});
 window.addEventListener('pointermove',e=>{if(!drag)return;const svg=document.getElementById('chart-'+drag.act);if(!svg)return;const r=svg.getBoundingClientRect(),y=(e.clientY-r.top)/r.height*210;
@@ -409,106 +388,116 @@ window.addEventListener('pointermove',e=>{if(!drag)return;const svg=document.get
  const inp=document.getElementById('pt-'+drag.act+'-'+drag.i+'-p');if(inp)inp.value=p});
 window.addEventListener('pointerup',()=>{if(drag){drag=null;render()}});
 
-function vFloors(){let h='<section class="card"><h3>Payer floors</h3><p class="muted">What an insurer always keeps visible, whatever the protection says. A floor with no contract reference is marked provisional. In this demo the weekly minimum is spread over five working days.</p><div class="scroll"><table><thead><tr><th>Insurer</th><th>Min. visible slots / week</th><th>Max. wait (days)</th><th>Contract reference</th><th>≈ per day</th></tr></thead><tbody>'
- +INS.map(i=>'<tr><th>'+i.name+'</th><td><input type="number" id="fl-w-'+i.id+'" min="0" max="60" value="'+i.weekly+'" data-c="flW" data-id="'+i.id+'" aria-label="Weekly minimum"></td><td><input type="number" id="fl-m-'+i.id+'" min="1" max="60" value="'+i.maxWait+'" data-c="flM" data-id="'+i.id+'" aria-label="Maximum wait"></td><td>'+(i.prov?'<span class="pill warn">provisional</span>':esc(i.ref))+'</td><td class="mono">'+Math.ceil(i.weekly/5)+'</td></tr>').join('')+'</tbody></table></div></section>';
- h+='<section class="card"><h3>Wait to first visible slot, by doctor</h3><p class="muted">First visit. Today is '+dl(S.today)+'.</p><div class="scroll"><table><thead><tr><th>Doctor</th>'+INS.map(i=>'<th>'+i.name+' (max '+i.maxWait+'d)</th>').join('')+'</tr></thead><tbody>';
- DOCS.forEach(d=>{h+='<tr><th>'+esc(d.name)+'</th>'+INS.map(i=>{let w=null;for(let day=S.today;day<S.today+30&&w==null;day++)if(isWork(day)&&computeDay(d,day,'first').ins[i.id].n>0)w=day-S.today;
-  const bad=w==null||w>i.maxWait;return '<td>'+(w==null?'none in 30 days':w+' days')+' <span class="pill '+(bad?'bad':'ok')+'">'+(bad?'above max':'within max')+'</span></td>'}).join('')+'</tr>'});
+function firstWait(d,i){for(let day=S.today;day<S.today+30;day++)if(isWork(day)&&computeDay(d,day,'first').ins[i.id].n>0)return day-S.today;return null}
+function vFloors(){let h='<section class="card"><h3>'+x('Payer floors','Mínimos por aseguradora')+'</h3><p class="muted">'+x('What an insurer always keeps visible, whatever the protection says. A floor with no contract reference is marked provisional. In this demo the weekly minimum is spread over five working days.','Lo que una aseguradora siempre mantiene visible, diga lo que diga la protección. Un mínimo sin referencia contractual se marca como provisional. En esta demo el mínimo semanal se reparte en cinco días laborables.')+'</p><div class="scroll"><table><thead><tr><th>'+x('Insurer','Aseguradora')+'</th><th>'+x('Min. visible slots / week','Mín. huecos visibles / semana')+'</th><th>'+x('Max. wait (days)','Demora máx. (días)')+'</th><th>'+x('Contract','Contrato')+'</th><th>'+x('≈ per day','≈ por día')+'</th></tr></thead><tbody>'
+ +INS.map(i=>'<tr><th>'+i.name+'</th><td><input type="number" id="fl-w-'+i.id+'" min="0" max="60" value="'+i.weekly+'" data-c="flW" data-id="'+i.id+'" aria-label="'+x('Weekly minimum','Mínimo semanal')+'"></td><td><input type="number" id="fl-m-'+i.id+'" min="1" max="60" value="'+i.maxWait+'" data-c="flM" data-id="'+i.id+'" aria-label="'+x('Maximum wait','Demora máxima')+'"></td><td>'+(i.prov?'<span class="pill warn">'+x('provisional','provisional')+'</span>':esc(i.ref))+'</td><td>'+Math.ceil(i.weekly/5)+'</td></tr>').join('')+'</tbody></table></div></section>';
+ h+='<section class="card"><h3>'+x('Wait to first visible slot, by doctor','Espera hasta el primer hueco visible, por médico')+'</h3><p class="muted">'+x('First visit. Today is ','Primera consulta. Hoy es ')+dl(S.today)+'.</p><div class="scroll"><table><thead><tr><th>'+x('Doctor','Médico')+'</th>'+INS.map(i=>'<th>'+i.name+' ('+x('max ','máx. ')+i.maxWait+'d)</th>').join('')+'</tr></thead><tbody>';
+ DOCS.forEach(d=>{h+='<tr><th>'+esc(dn(d))+'</th>'+INS.map(i=>{const w=firstWait(d,i),bad=w==null||w>i.maxWait;return '<td>'+(w==null?x('none in 30 days','ninguno en 30 días'):w+x(' days',' días'))+' <span class="pill '+(bad?'bad':'ok')+'">'+(bad?x('above max','sobre el máximo'):x('within max','dentro del máximo'))+'</span></td>'}).join('')+'</tr>'});
  return h+'</tbody></table></div></section>'}
-A.flW=(d,t,v)=>{const i=INS.find(x=>x.id===d.id),o=i.weekly;i.weekly=Math.max(0,+v||0);S.log.unshift({at:S.today,who:'Manager',text:i.name+' weekly minimum '+o+' → '+i.weekly+'.'})};
-A.flM=(d,t,v)=>{const i=INS.find(x=>x.id===d.id),o=i.maxWait;i.maxWait=Math.max(1,+v||1);S.log.unshift({at:S.today,who:'Manager',text:i.name+' max wait '+o+' → '+i.maxWait+' days.'})};
+A.flW=(d,t,v)=>{const i=INS.find(q=>q.id===d.id),o=i.weekly;i.weekly=Math.max(0,+v||0);logAdd(i.name+' weekly minimum '+o+' → '+i.weekly+'.',i.name+': mínimo semanal '+o+' → '+i.weekly+'.')};
+A.flM=(d,t,v)=>{const i=INS.find(q=>q.id===d.id),o=i.maxWait;i.maxWait=Math.max(1,+v||1);logAdd(i.name+' max wait '+o+' → '+i.maxWait+' days.',i.name+': demora máxima '+o+' → '+i.maxWait+' días.')};
 
 function vLevers(){const f=S.ovForm,days=workdays(14);if(!days.includes(f.day))f.day=days[0];
- let h='<section class="card"><h3>Manual levers</h3><p class="muted">Open a day to insurers now, or hold a day for private patients. Every lever needs a reason and is recorded as an exception. Floors still apply.</p><div class="row">'
- +'<label>Doctor<br>'+sel('lv-doc',DOCS.map(d=>[d.id,d.name]),f.doc,'lvDoc')+'</label><label>Day<br>'+sel('lv-day',days.map(d=>[d,dl(d)]),f.day,'lvDay')+'</label>'
- +'<label>Action<br>'+sel('lv-type',[['open','Open to insurers now'],['block','Hold 100% for private']],f.type,'lvType')+'</label>'
- +'<label>Reason<br><input type="text" id="lv-reason" placeholder="Required" value="'+esc(f.reason)+'" data-c="lvReason" style="min-width:240px"></label>'
- +'<button class="btn pri" data-a="lvApply"'+(f.reason.trim()?'':' disabled')+'>Apply</button></div></section>';
- h+='<section class="card"><h3>Active exceptions</h3>'+(S.ov.length?'<div class="scroll"><table><thead><tr><th>Doctor</th><th>Day</th><th>Action</th><th>Reason</th><th>By</th><th></th></tr></thead><tbody>'+S.ov.map(o=>'<tr><td>'+esc(DOCS.find(d=>d.id===o.doc).name)+'</td><td>'+dl(o.day)+'</td><td><span class="pill '+(o.type==='open'?'ins':'priv')+'">'+(o.type==='open'?'opened':'held 100%')+'</span></td><td>'+esc(o.reason)+'</td><td>'+esc(o.author)+', '+dl(o.at)+'</td><td><button class="btn sm" data-a="lvDel" data-id="'+o.id+'">Remove</button></td></tr>').join('')+'</tbody></table></div>':'<p class="muted">None.</p>')
- +'<div class="note">Rule of thumb: if exceptions pass 20% of a doctor\'s slots in a month, the curve is wrong. Change the curve instead of forcing.</div></section>';return h}
+ let h='<section class="card"><h3>'+x('Manual levers','Palancas manuales')+'</h3><p class="muted">'+x('Open a day to insurers now, or hold a day for private patients. Every lever needs a reason and is recorded as an exception. Floors still apply.','Abre un día a las aseguradoras ahora, o resérvalo para pacientes privados. Cada palanca exige un motivo y se registra como excepción. Los mínimos siguen aplicándose.')+'</p><div class="row">'
+ +'<label>'+x('Doctor','Médico')+'<br>'+sel('lv-doc',DOCS.map(d=>[d.id,dn(d)]),f.doc,'lvDoc')+'</label><label>'+x('Day','Día')+'<br>'+sel('lv-day',days.map(d=>[d,dl(d)]),f.day,'lvDay')+'</label>'
+ +'<label>'+x('Action','Acción')+'<br>'+sel('lv-type',[['open',x('Open to insurers now','Abrir a aseguradoras ya')],['block',x('Hold 100% for private','Reservar 100% para privado')]],f.type,'lvType')+'</label>'
+ +'<label>'+x('Reason','Motivo')+'<br><input type="text" id="lv-reason" placeholder="'+x('Required','Obligatorio')+'" value="'+esc(f.reason)+'" data-c="lvReason" style="min-width:240px"></label>'
+ +'<button class="btn pri" data-a="lvApply"'+(f.reason.trim()?'':' disabled')+'>'+x('Apply','Aplicar')+'</button></div></section>';
+ h+='<section class="card"><h3>'+x('Active exceptions','Excepciones activas')+'</h3>'+(S.ov.length?'<div class="scroll"><table><thead><tr><th>'+x('Doctor','Médico')+'</th><th>'+x('Day','Día')+'</th><th>'+x('Action','Acción')+'</th><th>'+x('Reason','Motivo')+'</th><th>'+x('By','Por')+'</th><th></th></tr></thead><tbody>'+S.ov.map(o=>'<tr><td>'+esc(dn(DOCS.find(d=>d.id===o.doc)))+'</td><td>'+dl(o.day)+'</td><td><span class="pill '+(o.type==='open'?'ok':'blue')+'">'+(o.type==='open'?x('opened','abierto'):x('held 100%','reservado 100%'))+'</span></td><td>'+esc(bi(o.reason))+'</td><td>'+esc(bi(o.author))+', '+dl(o.at)+'</td><td><button class="btn sm" data-a="lvDel" data-id="'+o.id+'">'+x('Remove','Quitar')+'</button></td></tr>').join('')+'</tbody></table></div>':'<p class="muted">'+x('None.','Ninguna.')+'</p>')
+ +'<div class="note">'+x("Rule of thumb: if exceptions pass 20% of a doctor's slots in a month, the curve is wrong. Change the curve instead of forcing.",'Regla práctica: si las excepciones superan el 20% de los huecos de un médico en un mes, la curva está mal. Cambia la curva en lugar de forzar.')+'</div></section>';return h}
 A.lvDoc=(d,t,v)=>{S.ovForm.doc=v};A.lvDay=(d,t,v)=>{S.ovForm.day=+v};A.lvType=(d,t,v)=>{S.ovForm.type=v};A.lvReason=(d,t,v)=>{S.ovForm.reason=v};
-A.lvApply=()=>{const f=S.ovForm;S.ov=S.ov.filter(o=>!(o.doc===f.doc&&o.day===f.day));S.ov.push({id:Date.now(),doc:f.doc,day:f.day,type:f.type,reason:f.reason.trim(),author:'Manager',at:S.today});
- S.log.unshift({at:S.today,who:'Manager',text:(f.type==='open'?'Opened ':'Held 100% ')+DOCS.find(d=>d.id===f.doc).name+' '+dl(f.day)+': '+f.reason.trim()});f.reason=''};
+A.lvApply=()=>{const f=S.ovForm,dc=DOCS.find(q=>q.id===f.doc);S.ov=S.ov.filter(o=>!(o.doc===f.doc&&o.day===f.day));S.ov.push({id:Date.now(),doc:f.doc,day:f.day,type:f.type,reason:f.reason.trim(),author:['Manager','Gerente'],at:S.today});
+ logAdd((f.type==='open'?'Opened ':'Held 100% ')+dc.n+' '+dl(f.day)+': '+f.reason.trim(),(f.type==='open'?'Abierto ':'Reservado 100% ')+dc.n+' '+dl(f.day)+': '+f.reason.trim());f.reason=''};
 A.lvDel=d=>{S.ov=S.ov.filter(o=>String(o.id)!==d.id)};
 
 function vAudit(){const a=S.aud,days=workdays(14);if(!days.includes(a.day))a.day=days[0];const doc=DOCS.find(d=>d.id===a.doc),r=computeDay(doc,a.day,a.act);
- let h='<section class="card"><h3>Why was a slot shown or hidden?</h3><p class="muted">Every recalculation is stored with the curve, the result and the reason. This is what the doctor or an insurer would ask for.</p><div class="row">'
- +'<label>Doctor<br>'+sel('au-doc',DOCS.map(d=>[d.id,d.name]),a.doc,'auDoc')+'</label><label>Day<br>'+sel('au-day',days.map(d=>[d,dl(d)]),a.day,'auDay')+'</label><label>Visit<br>'+sel('au-act',[['first','First visit'],['rev','Revision']],a.act,'auAct')+'</label></div>'
- +'<div class="note"><b>Rule used:</b> '+esc(r.src.label)+'<br><b>Result:</b> '+esc(r.why)+'</div>'
- +'<div class="scroll"><table><thead><tr><th>Slot</th><th>State</th><th>Private</th>'+INS.map(i=>'<th>'+i.name+'</th>').join('')+'</tr></thead><tbody>'
- +r.slots.map(s=>{const st=s.st?'Booked · '+insName(s.st.payer)+(s.st.forced?' (forced)':''):(s.prot?'Free, held':'Free');
-  return '<tr><td class="mono">'+s.time+'</td><td>'+st+'</td><td>'+(s.st?'<span class="none">n/a</span>':'<span class="pill ok">visible</span>')+'</td>'+INS.map(i=>'<td>'+(s.st?'<span class="none">n/a</span>':s.vis[i.id]?'<span class="pill ok">visible'+(s.rel[i.id]?' · floor':'')+'</span>':'<span class="pill">hidden</span>')+'</td>').join('')+'</tr>'}).join('')+'</tbody></table></div></section>';
- h+='<div class="two"><section class="card"><h3>Change log</h3><div class="scroll"><table><tbody>'+S.log.slice(0,10).map(l=>'<tr><td class="mono" style="white-space:nowrap">'+dl(l.at)+'</td><td>'+esc(l.who)+'</td><td>'+esc(l.text)+'</td></tr>').join('')+'</tbody></table></div></section>'
- +'<section class="card"><h3>Booking events</h3>'+(S.ev.length?'<div class="scroll"><table><thead><tr><th>Slot</th><th>Payer</th><th>Channel</th></tr></thead><tbody>'+S.ev.slice(0,8).map(e=>'<tr><td>'+esc(DOCS.find(d=>d.id===e.doc).name.replace('Dr. ',''))+' · '+dl(e.day)+' '+e.time+'</td><td>'+insName(e.payer)+'</td><td>'+e.channel+(e.forced?' · forced: '+esc(e.reason):'')+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">No bookings made in this demo yet. Book in the Patient or Reception view and they appear here.</p>')+'</section></div>';return h}
+ const vis='<span class="pill ok">'+x('visible','visible')+'</span>',na='<span class="none">n/a</span>';
+ let h='<section class="card"><h3>'+x('Why was a slot shown or hidden?','¿Por qué se mostró u ocultó un hueco?')+'</h3><p class="muted">'+x('Every recalculation is stored with the curve, the result and the reason. This is what the doctor or an insurer would ask for.','Cada recálculo se guarda con la curva, el resultado y el motivo. Es lo que pediría el médico o una aseguradora.')+'</p><div class="row">'
+ +'<label>'+x('Doctor','Médico')+'<br>'+sel('au-doc',DOCS.map(d=>[d.id,dn(d)]),a.doc,'auDoc')+'</label><label>'+x('Day','Día')+'<br>'+sel('au-day',days.map(d=>[d,dl(d)]),a.day,'auDay')+'</label><label>'+x('Visit','Visita')+'<br>'+sel('au-act',ACTS(),a.act,'auAct')+'</label></div>'
+ +'<div class="note"><b>'+x('Rule used:','Regla usada:')+'</b> '+esc(r.src.label)+'<br><b>'+x('Result:','Resultado:')+'</b> '+esc(r.why())+'</div>'
+ +'<div class="scroll"><table><thead><tr><th>'+x('Slot','Hueco')+'</th><th>'+x('State','Estado')+'</th><th>'+x('Private','Privado')+'</th>'+INS.map(i=>'<th>'+i.name+'</th>').join('')+'</tr></thead><tbody>'
+ +r.slots.map(s=>{const st=s.st?x('Booked · ','Reservado · ')+insName(s.st.payer)+(s.st.forced?' ('+x('forced','forzada')+')':''):(s.prot?x('Free, held','Libre, protegido'):x('Free','Libre'));
+  return '<tr><td>'+s.time+'</td><td>'+st+'</td><td>'+(s.st?na:vis)+'</td>'+INS.map(i=>'<td>'+(s.st?na:s.vis[i.id]?'<span class="pill ok">'+x('visible','visible')+(s.rel[i.id]?' · '+x('floor','mínimo'):'')+'</span>':'<span class="pill">'+x('hidden','oculto')+'</span>')+'</td>').join('')+'</tr>'}).join('')+'</tbody></table></div></section>';
+ h+='<div class="two"><section class="card"><h3>'+x('Change log','Registro de cambios')+'</h3><div class="scroll"><table><tbody>'+S.log.slice(0,10).map(l=>'<tr><td style="white-space:nowrap">'+dl(l.at)+'</td><td>'+esc(bi(l.who))+'</td><td>'+esc(bi(l.text))+'</td></tr>').join('')+'</tbody></table></div></section>'
+ +'<section class="card"><h3>'+x('Booking events','Eventos de reserva')+'</h3>'+(S.ev.length?'<div class="scroll"><table><thead><tr><th>'+x('Slot','Hueco')+'</th><th>'+x('Payer','Pagador')+'</th><th>'+x('Channel','Canal')+'</th></tr></thead><tbody>'+S.ev.slice(0,8).map(e=>'<tr><td>'+esc(DOCS.find(d=>d.id===e.doc).n)+' · '+dl(e.day)+' '+e.time+'</td><td>'+insName(e.payer)+'</td><td>'+e.channel+(e.forced?' · '+x('forced: ','forzada: ')+esc(rsn(e.reason)):'')+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">'+x('No bookings made in this demo yet. Book in the Patient or Reception view and they appear here.','Aún no hay reservas en esta demo. Reserva en la vista Paciente o Recepción y aparecerán aquí.')+'</p>')+'</section></div>';return h}
 A.auDoc=(d,t,v)=>{S.aud.doc=v};A.auDay=(d,t,v)=>{S.aud.day=+v};A.auAct=(d,t,v)=>{S.aud.act=v};
 
-function vOverview(){const days=workdays(10),nx=nextWork();let free=0,tot=0,held=0,pr=0,ir=0;
- DOCS.forEach(d=>days.slice(0,7).forEach(day=>{const r=computeDay(d,day,'first');held+=r.prot;r.slots.forEach(s=>{if(s.st){if(s.st.payer==='private')pr+=PF;else ir+=IF}})}));
- DOCS.forEach(d=>{const r=computeDay(d,nx,'first');free+=r.free;tot+=14});
- let worst=0;DOCS.forEach(d=>INS.forEach(i=>{let w=null;for(let day=S.today;day<S.today+30&&w==null;day++)if(isWork(day)&&computeDay(d,day,'first').ins[i.id].n>0)w=day-S.today;worst=Math.max(worst,w==null?30:w)}));
+function vOverview(){const days=workdays(10),nx=nextWork();let free=0,tot=0,held=0,pr=0;
+ DOCS.forEach(d=>days.slice(0,7).forEach(day=>{const r=computeDay(d,day,'first');held+=r.prot;r.slots.forEach(s=>{if(s.st&&s.st.payer==='private')pr+=PF})}));
+ DOCS.forEach(d=>{free+=computeDay(d,nx,'first').free;tot+=14});
+ let worst=0;DOCS.forEach(d=>INS.forEach(i=>{const w=firstWait(d,i);worst=Math.max(worst,w==null?30:w)}));
  const forced=Object.values(S.ub).filter(b=>b.forced).length;
- let h='<section class="card"><h2>Clinic overview</h2><p class="muted">Both numbers are watched together: fewer empty slots the day before, without losing private revenue.</p><div class="grid g4">'
- +'<div class="kpi"><span>Empty slots tomorrow ('+dl(nx)+')</span><b>'+Math.round(free/tot*100)+'%</b></div><div class="kpi"><span>Slots held for private, next 7 working days</span><b>'+held+'</b></div>'
- +'<div class="kpi"><span>Private revenue booked, next 7 days (illustrative)</span><b>'+eur(pr)+'</b></div><div class="kpi"><span>Longest wait to a visible insurer slot</span><b>'+worst+' days</b></div></div>'
- +(forced||S.ov.length?'<div class="note">Exceptions in use: '+S.ov.length+' manual day levers and '+forced+' forced bookings.</div>':'')+'</section>';
- h+='<section class="card"><h3>Held slots by doctor and day</h3><p class="muted">First visit. Each cell shows free slots and how many are held for private. Select a cell to open its audit trail.</p><div class="scroll"><table class="mx"><thead><tr><th>Doctor</th>'+days.map(d=>'<th>'+dl(d)+'</th>').join('')+'</tr></thead><tbody>'
- +DOCS.map(d=>'<tr><th>'+esc(d.name)+'<br><span class="small muted">'+esc(curveSrc(d.id,'first').label)+'</span></th>'+days.map(day=>{const r=computeDay(d,day,'first'),a=r.free?r.prot/r.free:0;return '<td><button data-a="goAudit" data-doc="'+d.id+'" data-day="'+day+'" style="background:color-mix(in srgb,var(--prot) '+Math.round(a*55)+'%,transparent)">'+r.free+' free<small>'+r.prot+' held'+(r.ov?' · M':'')+'</small></button></td>'}).join('')+'</tr>').join('')+'</tbody></table></div><p class="small muted" style="margin-top:8px">M = manual lever on that day.</p></section>';
- const pend=S.req.filter(q=>q.status==='pending');
- h+='<section class="card"><h3>Doctor requests</h3>'+(S.req.length?'<div class="scroll"><table><thead><tr><th>Doctor</th><th>Request</th><th>Estimated cost</th><th>Status</th><th></th></tr></thead><tbody>'+S.req.map(q=>{const c=estCost(q.doc,q.kind);return '<tr><td>'+esc(DOCS.find(d=>d.id===q.doc).name)+'</td><td>'+PRESETS[q.kind].label+'</td><td class="mono">'+eur(c.v)+' '+c.t+', next 20 days</td><td><span class="pill '+(q.status==='pending'?'warn':q.status==='approved'?'ok':'')+'">'+q.status+'</span></td><td>'+(q.status==='pending'?'<button class="btn sm pri" data-a="reqOk" data-id="'+q.id+'">Approve</button> <button class="btn sm" data-a="reqNo" data-id="'+q.id+'">Decline</button>':'')+'</td></tr>'}).join('')+'</tbody></table></div>':'<p class="muted">No requests.</p>')+'</section>';
- h+='<section class="card"><h3>Who follows which rule</h3><div class="scroll"><table><thead><tr><th>Doctor</th><th>Agreement</th><th>Rule in force</th></tr></thead><tbody>'+DOCS.map(d=>'<tr><td>'+esc(d.name)+'</td><td>'+d.agr+'</td><td>'+esc(curveSrc(d.id,'first').label)+'</td></tr>').join('')+'</tbody></table></div></section>';return h}
+ let h='<section class="card"><h2>'+x('Clinic overview','Resumen de la clínica')+'</h2><p class="muted">'+x('Both numbers are watched together: fewer empty slots the day before, without losing private revenue.','Se vigilan ambas cifras a la vez: menos huecos vacíos el día antes, sin perder facturación privada.')+'</p><div class="grid g4">'
+ +'<div class="kpi"><span>'+x('Empty slots tomorrow','Huecos vacíos mañana')+' ('+dl(nx)+')</span><b>'+Math.round(free/tot*100)+'%</b></div><div class="kpi"><span>'+x('Slots held for private, next 7 working days','Huecos protegidos para privado, próximos 7 días laborables')+'</span><b>'+held+'</b></div>'
+ +'<div class="kpi"><span>'+x('Private revenue booked, next 7 days (illustrative)','Facturación privada reservada, próximos 7 días (ilustrativa)')+'</span><b>'+eur(pr)+'</b></div><div class="kpi"><span>'+x('Longest wait to a visible insurer slot','Mayor espera hasta un hueco visible de aseguradora')+'</span><b>'+worst+x(' days',' días')+'</b></div></div>'
+ +(forced||S.ov.length?'<div class="note">'+x('Exceptions in use: '+S.ov.length+' manual day levers and '+forced+' forced bookings.','Excepciones en uso: '+S.ov.length+' palancas manuales de día y '+forced+' reservas forzadas.')+'</div>':'')+'</section>';
+ h+='<section class="card"><h3>'+x('Held slots by doctor and day','Huecos protegidos por médico y día')+'</h3><p class="muted">'+x('First visit. Each cell shows free slots and how many are held for private. Select a cell to open its audit trail.','Primera consulta. Cada celda muestra los huecos libres y cuántos están protegidos para privado. Pulsa una celda para ver su auditoría.')+'</p><div class="scroll"><table class="mx"><thead><tr><th>'+x('Doctor','Médico')+'</th>'+days.map(d=>'<th>'+dl(d)+'</th>').join('')+'</tr></thead><tbody>'
+ +DOCS.map(d=>'<tr><th>'+esc(dn(d))+'<br><span class="small muted">'+esc(curveSrc(d.id,'first').label)+'</span></th>'+days.map(day=>{const r=computeDay(d,day,'first'),a=r.free?r.prot/r.free:0;return '<td><button data-a="goAudit" data-doc="'+d.id+'" data-day="'+day+'" style="background:rgba(245,158,11,'+(a*.35).toFixed(2)+')">'+r.free+' '+x('free','libres')+'<small>'+r.prot+' '+x('held','protegidos')+(r.ov?' · M':'')+'</small></button></td>'}).join('')+'</tr>').join('')+'</tbody></table></div><p class="small muted" style="margin-top:8px">'+x('M = manual lever on that day.','M = palanca manual ese día.')+'</p></section>';
+ h+='<section class="card"><h3>'+x('Doctor requests','Solicitudes de los médicos')+'</h3>'+(S.req.length?'<div class="scroll"><table><thead><tr><th>'+x('Doctor','Médico')+'</th><th>'+x('Request','Solicitud')+'</th><th>'+x('Estimated cost','Coste estimado')+'</th><th>'+x('Status','Estado')+'</th><th></th></tr></thead><tbody>'+S.req.map(q=>{const c=estCost(q.doc,q.kind);return '<tr><td>'+esc(dn(DOCS.find(d=>d.id===q.doc)))+'</td><td>'+pl(q.kind)+'</td><td>'+eur(c.v)+' '+c.t+', '+x('next 20 days','próximos 20 días')+'</td><td><span class="pill '+(q.status==='pending'?'warn':q.status==='approved'?'ok':'')+'">'+stateLabel(q.status)+'</span></td><td>'+(q.status==='pending'?'<button class="btn sm pri" data-a="reqOk" data-id="'+q.id+'">'+x('Approve','Aprobar')+'</button> <button class="btn sm" data-a="reqNo" data-id="'+q.id+'">'+x('Decline','Rechazar')+'</button>':'')+'</td></tr>'}).join('')+'</tbody></table></div>':'<p class="muted">'+x('No requests.','Sin solicitudes.')+'</p>')+'</section>';
+ h+='<section class="card"><h3>'+x('Who follows which rule','Quién sigue qué regla')+'</h3><div class="scroll"><table><thead><tr><th>'+x('Doctor','Médico')+'</th><th>'+x('Agreement','Acuerdo')+'</th><th>'+x('Rule in force','Regla vigente')+'</th></tr></thead><tbody>'+DOCS.map(d=>'<tr><td>'+esc(dn(d))+'</td><td>'+bi(d.agr)+'</td><td>'+esc(curveSrc(d.id,'first').label)+'</td></tr>').join('')+'</tbody></table></div></section>';return h}
 A.goAudit=d=>{S.aud={doc:d.doc,day:+d.day,act:'first'};S.mg.tab='audit'};
-A.reqOk=d=>{const q=S.req.find(x=>String(x.id)===d.id);q.status='approved';const p=PRESETS[q.kind];S.exc[q.doc]={v:1,kind:q.kind,curves:{first:clone(p.first),rev:clone(p.rev)},by:DOCS.find(x=>x.id===q.doc).name+' (opt-out, approved by manager)',at:S.today};
- S.log.unshift({at:S.today,who:'Manager',text:'Approved request for '+DOCS.find(x=>x.id===q.doc).name+': '+p.label+'.'});S.mg.draft=null};
-A.reqNo=d=>{S.req.find(x=>String(x.id)===d.id).status='declined'};
+A.reqOk=d=>{const q=S.req.find(z=>String(z.id)===d.id);q.status='approved';const p=PRESETS[q.kind],dc=DOCS.find(z=>z.id===q.doc);S.exc[q.doc]={v:1,kind:q.kind,curves:{first:clone(p.first),rev:clone(p.rev)},by:[dc.n+' (opt-out, approved by manager)',dc.n+' (exclusión voluntaria, aprobada por el gerente)'],at:S.today};
+ logAdd('Approved request for '+dc.n+': '+p.label[0]+'.','Aprobada la solicitud de '+dc.n+': '+p.label[1]+'.');S.mg.draft=null};
+A.reqNo=d=>{S.req.find(z=>String(z.id)===d.id).status='declined'};
 
-function vManager(){const t=S.mg.tab,tabs=[['overview','Overview'],['curves','Curves'],['floors','Payer floors'],['levers','Levers'],['audit','Audit and log']];
- return '<div class="sub">'+tabs.map(x=>'<button class="'+(t===x[0]?'on':'')+'" data-a="mgTab" data-t="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+({overview:vOverview,curves:vCurves,floors:vFloors,levers:vLevers,audit:vAudit}[t])()}
+function vManager(){const t=S.mg.tab,tabs=[['overview',x('Overview','Resumen')],['curves',x('Curves','Curvas')],['floors',x('Payer floors','Mínimos por aseguradora')],['levers',x('Levers','Palancas')],['audit',x('Audit and log','Auditoría y registro')]];
+ return '<div class="sub">'+tabs.map(q=>'<button class="'+(t===q[0]?'on':'')+'" data-a="mgTab" data-t="'+q[0]+'">'+q[1]+'</button>').join('')+'</div>'+({overview:vOverview,curves:vCurves,floors:vFloors,levers:vLevers,audit:vAudit}[t])()}
 A.mgTab=d=>{S.mg.tab=d.t};
 
 function vDoctor(){const v=S.dv,doc=DOCS.find(d=>d.id===v.doc),days=workdays(10);if(!days.includes(v.day))v.day=days[0];
  const src=curveSrc(doc.id,v.act),r=computeDay(doc,v.day,v.act);let held=0;days.slice(0,7).forEach(d=>held+=computeDay(doc,d,'first').prot);
  const mine=S.req.filter(q=>q.doc===doc.id);
- let h='<section class="card"><h2>My availability rules</h2><p class="muted">Read-only. This shows what affects your agenda and why.</p><div class="row"><label>Signed in as<br>'+sel('dv-doc',DOCS.map(d=>[d.id,d.name]),v.doc,'dvDoc')+'</label><label>Visit<br>'+sel('dv-act',[['first','First visit'],['rev','Revision']],v.act,'dvAct')+'</label></div>'
- +'<div class="grid g4"><div class="kpi"><span>Agreement</span><b style="font-size:18px">'+doc.agr+'</b></div><div class="kpi"><span>Rule in force</span><b style="font-size:18px">'+esc(src.label)+'</b></div><div class="kpi"><span>Held for private, next 7 working days</span><b>'+held+' slots</b></div><div class="kpi"><span>Expected extra private revenue from holds</span><b>'+eur(held*.5*(PF-IF))+'</b></div></div></section>';
- h+='<section class="card"><h3>My next working days</h3><div class="sub" style="margin-top:12px">'+days.map(d=>{const q=computeDay(doc,d,v.act);return '<button class="'+(v.day===d?'on':'')+'" data-a="dvDay" data-day="'+d+'">'+dl(d)+'<br><span class="mono small">'+q.free+' free · '+q.prot+' held</span></button>'}).join('')+'</div>'
- +'<div class="slots">'+r.slots.map(s=>slotCell(s,{a:'noop'})).join('')+'</div>'+legend(0)
- +'<div class="note"><b>Why:</b> '+esc(r.why)+'</div></section>';
- h+='<section class="card"><h3>Ask the clinic manager for a change</h3><p class="muted">The manager approves. You see what each option is expected to cost before you ask.</p><div class="grid g2">'+['zero','total'].map(k=>{const c=estCost(doc.id,k);return '<div class="kpi"><span>'+PRESETS[k].label+'</span><b>'+eur(c.v)+'</b><span>'+c.t+', next 20 working days (estimate)</span><div style="margin-top:10px"><button class="btn sm" data-a="dvReq" data-k="'+k+'">Send request</button></div></div>'}).join('')+'</div>'
- +(mine.length?'<div class="scroll"><table><tbody>'+mine.map(q=>'<tr><td>'+PRESETS[q.kind].label+'</td><td>'+dl(q.at)+'</td><td><span class="pill '+(q.status==='pending'?'warn':q.status==='approved'?'ok':'')+'">'+q.status+'</span></td></tr>').join('')+'</tbody></table></div>':'')+'</section>';return h}
-A.dvDoc=(d,t,v)=>{S.dv.doc=v};A.dvAct=(d,t,v)=>{S.dv.act=v};A.dvDay=d=>{S.dv.day=+d.day};A.noop=()=>{};
+ let h='<section class="card"><h2>'+x('My availability rules','Mis reglas de disponibilidad')+'</h2><p class="muted">'+x('Read-only. This shows what affects your agenda and why.','Solo lectura. Muestra qué afecta a tu agenda y por qué.')+'</p><div class="row"><label>'+x('Signed in as','Sesión de')+'<br>'+sel('dv-doc',DOCS.map(d=>[d.id,dn(d)]),v.doc,'dvDoc')+'</label><label>'+x('Visit','Visita')+'<br>'+sel('dv-act',ACTS(),v.act,'dvAct')+'</label></div>'
+ +'<div class="grid g4"><div class="kpi"><span>'+x('Agreement','Acuerdo')+'</span><b style="font-size:18px">'+bi(doc.agr)+'</b></div><div class="kpi"><span>'+x('Rule in force','Regla vigente')+'</span><b style="font-size:18px">'+esc(src.label)+'</b></div><div class="kpi"><span>'+x('Held for private, next 7 working days','Protegidos para privado, próximos 7 días laborables')+'</span><b>'+held+'</b></div><div class="kpi"><span>'+x('Expected extra private revenue from holds','Facturación privada extra esperada por las protecciones')+'</span><b>'+eur(held*.5*(PF-IF))+'</b></div></div></section>';
+ h+='<section class="card"><h3>'+x('My next working days','Mis próximos días laborables')+'</h3><div class="sub" style="margin-top:12px">'+days.map(d=>{const q=computeDay(doc,d,v.act);return '<button class="'+(v.day===d?'on':'')+'" data-a="dvDay" data-day="'+d+'">'+dl(d)+' · '+q.free+' '+x('free','libres')+' · '+q.prot+' '+x('held','prot.')+'</button>'}).join('')+'</div>'
+ +'<div class="slots">'+r.slots.map(slotCell).join('')+'</div>'+legendSlots()
+ +'<div class="note"><b>'+x('Why:','Por qué:')+'</b> '+esc(r.why())+'</div></section>';
+ h+='<section class="card"><h3>'+x('Ask the clinic manager for a change','Pide un cambio al gerente de la clínica')+'</h3><p class="muted">'+x('The manager approves. You see what each option is expected to cost before you ask.','El gerente aprueba. Ves lo que se espera que cueste cada opción antes de pedirla.')+'</p><div class="grid g2">'+['zero','total'].map(k=>{const c=estCost(doc.id,k);return '<div class="kpi"><span>'+pl(k)+'</span><b>'+eur(c.v)+'</b><span>'+c.t+', '+x('next 20 working days (estimate)','próximos 20 días laborables (estimación)')+'</span><div style="margin-top:10px"><button class="btn sm pri" data-a="dvReq" data-k="'+k+'">'+x('Send request','Enviar solicitud')+'</button></div></div>'}).join('')+'</div>'
+ +(mine.length?'<div class="scroll"><table><tbody>'+mine.map(q=>'<tr><td>'+pl(q.kind)+'</td><td>'+dl(q.at)+'</td><td><span class="pill '+(q.status==='pending'?'warn':q.status==='approved'?'ok':'')+'">'+stateLabel(q.status)+'</span></td></tr>').join('')+'</tbody></table></div>':'')+'</section>';return h}
+A.dvDoc=(d,t,v)=>{S.dv.doc=v};A.dvAct=(d,t,v)=>{S.dv.act=v};A.dvDay=d=>{S.dv.day=+d.day};
 A.dvReq=d=>{S.req.push({id:Date.now(),doc:S.dv.doc,kind:d.k,status:'pending',at:S.today})};
 
 function vReception(){const c=S.rc,docs=c.filter==='all'?DOCS:[DOCS.find(d=>d.id===c.filter)];
- let h='<section class="card"><h2>Reception desk</h2><p class="muted">Reception sees every free slot. Held slots are marked and can be booked for an insurer only with a reason.</p><div class="row">'
- +'<label>Doctor<br>'+sel('rc-doc',[['all','All doctors'],...DOCS.map(d=>[d.id,d.name])],c.filter,'rcDoc')+'</label><label>Visit<br>'+sel('rc-act',[['first','First visit'],['rev','Revision']],c.act,'rcAct')+'</label></div>'
- +'<div class="legend"><span><span class="dot" style="background:var(--priv)"></span>Open</span><span><span class="dot" style="background:var(--prot)"></span>Held for private</span></div>'
- +(c.msg?'<div class="note good">'+esc(c.msg)+'</div>':'')+dayCols({docs,act:c.act,view:'rec',off:c.off,sel:c.sel,pg:'rcPg',a:'rcCard'}).h;
- if(c.sel){const [di,dy,i]=c.sel.split('|'),doc=DOCS.find(x=>x.id===di),sl=computeDay(doc,+dy,c.act).slots[+i];
+ const grid=dayCols({docs,act:c.act,view:'rec',off:c.off,sel:c.sel,pg:'rcPg',a:'rcCard'});
+ let h='<section class="card"><h2>'+x('Reception desk','Mostrador de recepción')+'</h2><p class="muted">'+x('Reception sees every free slot. Held slots are marked and can be booked for an insurer only with a reason.','Recepción ve todos los huecos libres. Los protegidos están marcados y solo se pueden reservar para una aseguradora con un motivo.')+'</p><div class="row">'
+ +'<label>'+x('Doctor','Médico')+'<br>'+sel('rc-doc',[['all',x('All doctors','Todos los médicos')],...DOCS.map(d=>[d.id,dn(d)])],c.filter,'rcDoc')+'</label><label>'+x('Visit','Visita')+'<br>'+sel('rc-act',ACTS(),c.act,'rcAct')+'</label></div>'
+ +'<div class="legend"><span>'+dot('#fff;border:2px solid var(--blue)')+x('Open','Libre')+'</span><span>'+dot('var(--amber)')+x('Held for private','Protegido para privado')+'</span><span class="count">'+grid.n+' '+x('times found','horarios encontrados')+'</span></div>'
+ +(c.msg?'<div class="note good">'+esc(c.msg)+'</div>':'')+grid.h;
+ if(c.sel){const [di,dy,i]=c.sel.split('|'),doc=DOCS.find(q=>q.id===di),sl=computeDay(doc,+dy,c.act).slots[+i];
   if(!sl.st){const held=!!sl.prot;
-   h+='<div class="note'+(held?' warn':'')+'">Book <b>'+TIMES[+i]+'</b> with '+esc(doc.name)+', '+dlong(+dy)+(held?'. This slot is <b>held for private patients</b>, so a reason is required for an insurer booking.':'.')+'<div class="row">'
-   +'<label>Patient pays<br>'+sel('rc-payer',[['private','Private'],...INS.map(x=>[x.id,x.name])],c.payer,'rcPayer')+'</label>'
-   +(held&&c.payer!=='private'?'<label>Reason<br>'+sel('rc-reason',['Recurring patient','Urgency','Doctor request','Other'].map(x=>[x,x]),c.reason,'rcReason')+'</label>':'')
-   +'<button class="btn pri" data-a="rcBook">'+(held&&c.payer!=='private'?'Force booking':'Book')+'</button></div></div>'}}
+   h+='<div class="note'+(held?' warn':'')+'">'+x('Book','Reservar')+' <b>'+TIMES[+i]+'</b> · '+esc(dn(doc))+', '+dlong(+dy)+(held?'. '+x('This slot is <b>held for private patients</b>, so a reason is required for an insurer booking.','Este horario está <b>protegido para pacientes privados</b>, así que una reserva de aseguradora requiere un motivo.'):'.')+'<div class="row">'
+   +'<label>'+x('Patient pays','Paga el paciente')+'<br>'+sel('rc-payer',[['private',x('Private','Privado')],...INS.map(q=>[q.id,q.name])],c.payer,'rcPayer')+'</label>'
+   +(held&&c.payer!=='private'?'<label>'+x('Reason','Motivo')+'<br>'+sel('rc-reason',REASONS.map(q=>[q[0],bi(q)]),c.reason,'rcReason')+'</label>':'')
+   +'<button class="btn pri" data-a="rcBook">'+(held&&c.payer!=='private'?x('Force booking','Forzar reserva'):x('Book','Reservar'))+'</button></div></div>'}}
  h+='</section>';
- h+='<section class="card"><h3>Recent bookings</h3>'+(S.ev.length?'<div class="scroll"><table><thead><tr><th>Slot</th><th>Payer</th><th>Channel</th></tr></thead><tbody>'+S.ev.slice(0,6).map(e=>'<tr><td>'+esc(DOCS.find(d=>d.id===e.doc).name)+' · '+dl(e.day)+' '+e.time+'</td><td>'+insName(e.payer)+'</td><td>'+e.channel+(e.forced?' <span class="pill warn">forced: '+esc(e.reason)+'</span>':'')+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">Nothing booked yet in this demo.</p>')+'</section>';return h}
+ h+='<section class="card"><h3>'+x('Recent bookings','Reservas recientes')+'</h3>'+(S.ev.length?'<div class="scroll"><table><thead><tr><th>'+x('Slot','Hueco')+'</th><th>'+x('Payer','Pagador')+'</th><th>'+x('Channel','Canal')+'</th></tr></thead><tbody>'+S.ev.slice(0,6).map(e=>'<tr><td>'+esc(dn(DOCS.find(d=>d.id===e.doc)))+' · '+dl(e.day)+' '+e.time+'</td><td>'+insName(e.payer)+'</td><td>'+e.channel+(e.forced?' <span class="pill warn">'+x('forced: ','forzada: ')+esc(rsn(e.reason))+'</span>':'')+'</td></tr>').join('')+'</tbody></table></div>':'<p class="muted">'+x('Nothing booked yet in this demo.','Aún no hay reservas en esta demo.')+'</p>')+'</section>';return h}
 A.rcDoc=(d,t,v)=>{S.rc.filter=v;S.rc.sel=null};A.rcAct=(d,t,v)=>{S.rc.act=v;S.rc.sel=null};A.rcPg=d=>{S.rc.off=Math.max(0,Math.min(18,S.rc.off+3*+d.d))};
 A.rcCard=d=>{S.rc.sel=d.key;S.rc.msg=null};A.rcPayer=(d,t,v)=>{S.rc.payer=v};A.rcReason=(d,t,v)=>{S.rc.reason=v};
-A.rcBook=()=>{const c=S.rc,[di,dy,i]=c.sel.split('|'),doc=DOCS.find(x=>x.id===di),day=+dy,sl=computeDay(doc,day,c.act).slots[+i];if(sl.st){c.sel=null;return}
- const forced=!!sl.prot&&c.payer!=='private';book(doc.id,day,+i,c.payer,{channel:'Reception',forced,reason:forced?c.reason:''});
- c.msg='Booked '+TIMES[+i]+' with '+doc.name+', '+dl(day)+', for '+insName(c.payer)+(forced?' (forced, reason: '+c.reason+')':'')+'.';c.sel=null};
+A.rcBook=()=>{const c=S.rc,[di,dy,i]=c.sel.split('|'),doc=DOCS.find(q=>q.id===di),day=+dy,sl=computeDay(doc,day,c.act).slots[+i];if(sl.st){c.sel=null;return}
+ const forced=!!sl.prot&&c.payer!=='private';book(doc.id,day,+i,c.payer,{channel:x('Reception','Recepción'),forced,reason:forced?c.reason:''});
+ c.msg=x('Booked ','Reservado ')+TIMES[+i]+' · '+dn(doc)+', '+dl(day)+' · '+insName(c.payer)+(forced?x(' (forced, reason: ',' (forzada, motivo: ')+rsn(c.reason)+')':'')+'.';c.sel=null};
 
 /* ---------- shell ---------- */
 A.role=d=>{S.role=d.r};
+A.lang=d=>{S.lang=d.l};
 A.day=d=>{const s=+d.d;let n=S.today+s;while(n>=0&&n<=20&&!isWork(n))n+=s;if(n>=0&&n<=20){S.today=n;S.pat.sel=null;S.rc.sel=null;S.dv.day=null;S.mg.draft=null}};
+const logoSVG='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 10h18M9 16l2 2 4-4"/></svg>';
+const langBtns=()=>'<div class="lang"><button class="'+(S.lang==='es'?'on':'')+'" data-a="lang" data-l="es" aria-label="Español">ES</button><button class="'+(S.lang==='en'?'on':'')+'" data-a="lang" data-l="en" aria-label="English">EN</button></div>';
+function renderGate(){document.getElementById('app').innerHTML='<div class="gate"><div style="width:100%;max-width:420px"><div class="glang">'+langBtns()+'</div><form class="gcard" id="gateform" autocomplete="off"><div class="ghead"><span class="logo">'+logoSVG+'</span><div><b style="font-size:20px;display:block">Slot Visibility</b><small style="opacity:.9">'+x('Demo with illustrative data','Demo con datos ilustrativos')+'</small></div></div><div class="gbody"><label for="gate-pw">'+x('Access code','Código de acceso')+'</label><input type="password" id="gate-pw" autofocus>'
+ +(S.gateErr?'<div class="note bad">'+x('Incorrect code. Try again.','Código incorrecto. Inténtalo de nuevo.')+'</div>':'')+'<button class="btn pri" type="submit">'+x('Enter','Entrar')+'</button></div></form></div></div>'}
 function render(){
- const roles=[['patient','Patient'],['manager','Manager'],['doctor','Doctor'],['reception','Reception']];
+ if(!S.unlocked)return renderGate();
+ const roles=[['patient',x('Patient','Paciente')],['manager',x('Manager','Gerente')],['doctor',x('Doctor','Médico')],['reception',x('Reception','Recepción')]];
  const view={how:vHow,patient:vPatient,manager:vManager,doctor:vDoctor,reception:vReception}[S.role]();
- document.getElementById('app').innerHTML='<header class="top"><div class="brand"><span class="mark"></span><div><b>Slot Visibility</b><small>Dynamic availability by payer · demo with illustrative data</small></div></div>'
- +'<div class="clock" title="Move the demo date to see protection release as the day gets closer">Demo date <button data-a="day" data-d="-1" aria-label="Previous working day">‹</button><b>'+dl(S.today)+'</b><button data-a="day" data-d="1" aria-label="Next working day">›</button></div></header>'
- +'<nav class="tabs"><div class="seg"><button class="'+(S.role==='how'?'on':'')+'" data-a="role" data-r="how">How it works</button></div><span class="lbl">View as</span><div class="seg">'+roles.map(r=>'<button class="'+(S.role===r[0]?'on':'')+'" data-a="role" data-r="'+r[0]+'">'+r[1]+'</button>').join('')+'</div></nav>'+view}
+ document.getElementById('app').innerHTML='<header class="band gut"><div class="bandin"><div class="brand"><span class="logo">'+logoSVG+'</span><div><b>Slot Visibility</b><small>'+x('Dynamic availability by payer · demo with illustrative data','Disponibilidad dinámica por pagador · demo con datos ilustrativos')+'</small></div></div>'
+ +'<div class="tools">'+langBtns()+'<div class="clock" title="'+x('Move the demo date to see protection release as the day gets closer','Mueve la fecha de la demo para ver cómo se libera la protección al acercarse el día')+'">'+x('Demo date','Fecha demo')+' <button data-a="day" data-d="-1" aria-label="'+x('Previous working day','Día laborable anterior')+'">‹</button><b>'+dl(S.today)+'</b><button data-a="day" data-d="1" aria-label="'+x('Next working day','Día laborable siguiente')+'">›</button></div></div></div></header>'
+ +'<main class="wrap gut"><nav class="tabs"><div class="seg"><button class="'+(S.role==='how'?'on':'')+'" data-a="role" data-r="how">'+x('How it works','Cómo funciona')+'</button></div><span class="lbl">'+x('View as','Ver como')+'</span><div class="seg">'+roles.map(r=>'<button class="'+(S.role===r[0]?'on':'')+'" data-a="role" data-r="'+r[0]+'">'+r[1]+'</button>').join('')+'</div></nav>'+view+'</main>'}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;const f=A[t.dataset.a];if(f){f(t.dataset,t);render()}});
 document.addEventListener('change',e=>{const t=e.target.closest('[data-c]');if(!t)return;const f=A[t.dataset.c];if(f){f(t.dataset,t,t.value);render()}});
 document.addEventListener('input',e=>{if(e.target.id==='lv-reason'){S.ovForm.reason=e.target.value;const b=document.querySelector('[data-a="lvApply"]');if(b)b.disabled=!e.target.value.trim()}});
+document.addEventListener('submit',e=>{if(e.target.id!=='gateform')return;e.preventDefault();
+ if(cyrb(document.getElementById('gate-pw').value.trim())===GATE){S.unlocked=true;S.gateErr=false;try{sessionStorage.setItem('svd-ok','1')}catch(_){}}else S.gateErr=true;render()});
+try{if(sessionStorage.getItem('svd-ok')==='1')S.unlocked=true}catch(_){}
 render();
 })();
 </script>
